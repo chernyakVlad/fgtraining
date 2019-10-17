@@ -1,24 +1,37 @@
 package com.training.components;
 
 import atg.droplet.GenericFormHandler;
+import atg.servlet.DynamoHttpServletRequest;
+import atg.servlet.DynamoHttpServletResponse;
+
+import javax.servlet.ServletException;
+import java.io.IOException;
 
 public class PersonFormHandler extends GenericFormHandler {
-     String firstName;
-     int age;
+    Person person;
+    NameChangeEventListener nameChangeEventListener;
 
-    public String getFirstName() {
-        return firstName;
+    public boolean handlePersonTitle(DynamoHttpServletRequest req, DynamoHttpServletResponse res) throws IOException, ServletException {
+        String newName = req.getParameter("button");
+        nameChangeEventListener.nameChanged(new NameChangeEvent(this, newName));
+        person.setName(newName);
+        System.out.println(newName);
+        return true;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public Person getPerson() {
+        return person;
     }
 
-    public int getAge() {
-        return age;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    public void setAge(String age) {
-        this.age = Integer.parseInt(age);
+    public NameChangeEventListener getNameChangeEventListener() {
+        return nameChangeEventListener;
+    }
+
+    public void setNameChangeEventListener(NameChangeEventListener nameChangeEventListener) {
+        this.nameChangeEventListener = nameChangeEventListener;
     }
 }

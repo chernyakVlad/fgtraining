@@ -1,10 +1,14 @@
 package com.training.components;
 
+import atg.nucleus.GenericService;
+import atg.nucleus.ServiceException;
+
 public class Person {
     String name;
-    int age;
 
-    public  Person() {}
+    public  Person() {
+        System.out.println("Person has been created");
+    }
 
     public String getName() {
         return name;
@@ -14,11 +18,4 @@ public class Person {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 }
