@@ -1,6 +1,8 @@
 package com.training.components;
 
+import atg.droplet.ForEach;
 import atg.droplet.GenericFormHandler;
+import atg.droplet.Switch;
 import atg.servlet.DynamoHttpServletRequest;
 import atg.servlet.DynamoHttpServletResponse;
 
