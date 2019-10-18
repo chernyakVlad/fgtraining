@@ -12,13 +12,22 @@ import java.io.IOException;
 
 public class PersonFormHandler extends GenericFormHandler {
     Person person;
+    Config config;
     NameChangeEventListener nameChangeEventListener;
 
     public boolean handlePersonTitle(DynamoHttpServletRequest req, DynamoHttpServletResponse res) throws IOException, ServletException {
-        String newName = req.getParameter("button");
-        nameChangeEventListener.nameChanged(new NameChangeEvent(this, newName, req.getSession().getId()));
-        person.setName(Config.NAME_CONFIG.get(newName));
+        String keyName = req.getParameter("button");
+        nameChangeEventListener.nameChanged(new NameChangeEvent(this, keyName, req.getSession().getId()));
+        person.setName(config.getNames().get(keyName));
         return true;
+    }
+
+    public Config getConfig() {
+        return config;
+    }
+
+    public void setConfig(Config config) {
+        this.config = config;
     }
 
     public Person getPerson() {
