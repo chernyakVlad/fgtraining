@@ -5,6 +5,7 @@ import atg.servlet.DynamoHttpServletRequest;
 import atg.servlet.DynamoHttpServletResponse;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class PersonFormHandler extends GenericFormHandler {
@@ -13,9 +14,8 @@ public class PersonFormHandler extends GenericFormHandler {
 
     public boolean handlePersonTitle(DynamoHttpServletRequest req, DynamoHttpServletResponse res) throws IOException, ServletException {
         String newName = req.getParameter("button");
-        nameChangeEventListener.nameChanged(new NameChangeEvent(this, newName));
+        nameChangeEventListener.nameChanged(new NameChangeEvent(this, newName, req.getSession().getId()));
         person.setName(newName);
-        System.out.println(newName);
         return true;
     }
 

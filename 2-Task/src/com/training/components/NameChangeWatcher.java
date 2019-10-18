@@ -8,6 +8,6 @@ public class NameChangeWatcher implements  NameChangeEventListener {
 
     @Override
     public void nameChanged(NameChangeEvent ev) {
-        System.out.println("Name has been changed on to " + ev.name);
+        System.out.println("Session: " + ev.sessionId + ", " + "name has been changed on to " + ev.name);
     }
 }
