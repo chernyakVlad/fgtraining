@@ -8,25 +8,44 @@
         <author>com.training</author>
         <version>1</version>
     </header>
+
     <item-descriptor name="person">
         <table name="person" type="primary" id-column-name="person_id">
+            <property name="id" data-type="int" column-name="person_id" />
             <property name="firstName" data-type="string" column-name="first_name" />
             <property name="lastName" data-type="string" column-name="last_name" />
         </table>
         <table name="person_to_role" type="multi" id-column-name="person_id">
             <property name="roles" data-type="set" component-item-type="role" column-name="role_id" />
         </table>
+        <table name="mentor_to_user" type="multi" id-column-name="mentor_id">
+            <property name="mentoredUsers" data-type="set" component-item-type="person" column-name="user_id" />
+        </table>
+        <table name="score" type="multi" id-column-name="person_id">
+            <property name="scores" data-type="set" component-item-type="score" column-name="score_id" />
+        </table>
     </item-descriptor>
+
     <item-descriptor name="role">
         <table name="person_role" type="primary" id-column-name="role_id">
             <property name="name" data-type="string" column-name="name_role" />
         </table>
     </item-descriptor>
+
     <item-descriptor name="visit">
         <table name="visit" type="primary" id-column-name="visit_id">
             <property name="personId" data-type="int" column-name="person_id" />
             <property name="visitDate" data-type="date" column-name="visit_date" />
             <property name="isOk" data-type="boolean" column-name="is_ok" />
+        </table>
+    </item-descriptor>
+
+    <item-descriptor name="score">
+        <table name="score" type="primary" id-column-name="score_id">
+            <property name="scoreId" data-type="int" column-name="score_id" />
+            <property name="scoreNumber" data-type="string" column-name="score_number" />
+            <property name="balanceUsd" data-type="int" column-name="balance_usd" />
+            <property name="personId" data-type="int" column-name="person_id" />
         </table>
     </item-descriptor>
 
