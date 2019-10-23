@@ -62,8 +62,8 @@
                     <table class="table table-bordred table-striped table-hover">
                         <dsp:droplet name="/atg/dynamo/droplet/RQLQueryRange">
                             <dsp:param name="isOk" value="1"/>
-                            <dsp:param name="date1"  value="'2019-10-22'"/>
-                            <dsp:param name="queryRQL" value="isOk = :isOk"/>
+                            <dsp:param name="date1"  value="2019-10-22"/>
+                            <dsp:param name="queryRQL" value="visitDate = date(date1)"/>
                             <dsp:param name="repository" value="/com/training/components/repository/PersonRepository1"/>
                             <dsp:param name="howMany" value="10"/>
                             <dsp:param name="itemDescriptor" value="visit"></dsp:param>
