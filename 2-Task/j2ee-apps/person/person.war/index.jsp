@@ -18,9 +18,9 @@
                 <dsp:valueof bean="/com/training/components/Person.name"/>
             </div>
             <dsp:form name="personNameForm">
-                <dsp:input type="submit" name="button" value="a" bean="/com/training/components/PersonFormHandler.PersonTitle"/>
-                <dsp:input type="submit" name="button" value="b" bean="/com/training/components/PersonFormHandler.PersonTitle"/>
-                <dsp:input type="submit" name="button" value="c" bean="/com/training/components/PersonFormHandler.PersonTitle"/>
+                <dsp:input iclass="btn btn-primary" type="submit" name="button" value="a" bean="/com/training/components/PersonFormHandler.PersonTitle"/>
+                <dsp:input iclass="btn btn-primary" type="submit" name="button" value="b" bean="/com/training/components/PersonFormHandler.PersonTitle"/>
+                <dsp:input iclass="btn btn-primary" type="submit" name="button" value="c" bean="/com/training/components/PersonFormHandler.PersonTitle"/>
             </dsp:form>
         </body>
     </html>

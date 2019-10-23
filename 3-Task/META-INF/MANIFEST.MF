@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+ATG-Required: DAS DPS DSS
+ATG-Config-Path: config/
+ATG-Class-Path: ./out
+ATG-EAR-Module: j2ee-apps/person
+ATG-J2EE: j2ee-apps/person
+

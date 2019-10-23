@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasources>
+    <xa-datasource enabled="true" jndi-name="java:/person" pool-name="person" use-java-context="true">
+        <xa-datasource-property name="URL">jdbc:oracle:thin:@localhost:1521:XE</xa-datasource-property>
+        <xa-datasource-property name="User">vlad</xa-datasource-property>
+        <xa-datasource-property name="Password">vlad123</xa-datasource-property>
+        <xa-datasource-class>oracle.jdbc.xa.client.OracleXADataSource</xa-datasource-class>
+        <driver>ojdbc6.jar</driver>
+
+
+        <security>
+            <user-name>QuickStart</user-name>
+            <password>atg</password>
+        </security>
+        <xa-pool>
+            <min-pool-size>5</min-pool-size>
+            <max-pool-size>100</max-pool-size>
+            <is-same-rm-override>false</is-same-rm-override>
+            <no-tx-separate-pools />
+        </xa-pool>
+        <timeout>
+            <blocking-timeout-millis>5000</blocking-timeout-millis>
+            <idle-timeout-minutes>15</idle-timeout-minutes>
+        </timeout>
+        <validation>
+            <exception-sorter class-name="org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter" />
+        </validation>
+        <!-- To avoid deadlocks you need set this -->
+        <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+    </xa-datasource>
+
+</datasources>
