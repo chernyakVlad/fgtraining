@@ -10,15 +10,13 @@
             <title>Persons</title>
         </head>
         <body>
-        <c:set var="userIdTest" scope="page"
-               value="2"/>
             <div class="col-md-12">
                 <h4>Persons</h4>
                 <div class="table-responsive">
                     <table id="mytable" class="table table-bordred table-striped table-hover">
                         <dsp:droplet name="/atg/dynamo/droplet/RQLQueryRange">
-                            <dsp:param name="queryRQL" value="all"/>
-                            <dsp:param name="repository" value="/com/training/components/repository/PersonRepository1"/>
+                            <dsp:param name="queryRQL" value="all" />
+                            <dsp:param name="repository" value="/com/training/components/repository/PersonRepository"/>
                             <dsp:param name="howMany" value="10"/>
                             <dsp:param name="itemDescriptor" value="person"></dsp:param>
 
@@ -40,12 +38,12 @@
                     </table>
                 </div>
 
-                <h4>Roles of Person: (id - ${userIdTest})</h4>
+                <h4>Roles of Person: (id - ${personIdTest})</h4>
                 <div class="table-responsive">
                     <dsp:droplet name="/atg/dynamo/droplet/RQLQueryRange">
-                        <dsp:param name="id1" value="${userIdTest}"/>
+                        <dsp:param name="id1" value="${personIdTest}"/>
                         <dsp:param name="queryRQL" value="id = :id1"/>
-                        <dsp:param name="repository" value="/com/training/components/repository/PersonRepository1"/>
+                        <dsp:param name="repository" value="/com/training/components/repository/PersonRepository"/>
                         <dsp:param name="howMany" value="10"/>
                         <dsp:param name="itemDescriptor" value="person"/>
                         <ul>
@@ -63,12 +61,12 @@
                     </dsp:droplet>
                 </div>
 
-                <h4>Persons mentored of Person: Maria(id - 5)</h4>
+                <h4>Persons mentored of Person: (id - ${personIdTest})</h4>
                 <div class="table-responsive">
                     <dsp:droplet name="/atg/dynamo/droplet/RQLQueryRange">
-                        <dsp:param name="id" value="5"/>
+                        <dsp:param name="id" value="${personIdTest}"/>
                         <dsp:param name="queryRQL" value="id = :id"/>
-                        <dsp:param name="repository" value="/com/training/components/repository/PersonRepository1"/>
+                        <dsp:param name="repository" value="/com/training/components/repository/PersonRepository"/>
                         <dsp:param name="howMany" value="10"/>
                         <dsp:param name="itemDescriptor" value="person"></dsp:param>
                         <ul>
@@ -92,7 +90,7 @@
                     <dsp:droplet name="/atg/dynamo/droplet/RQLQueryRange">
                         <dsp:param name="date" value="23/OCT/2019"/>
                         <dsp:param name="queryRQL" value="visitDate=:date and isOk = true"/>
-                        <dsp:param name="repository" value="/com/training/components/repository/PersonRepository1"/>
+                        <dsp:param name="repository" value="/com/training/components/repository/PersonRepository"/>
                         <dsp:param name="howMany" value="10"/>
                         <dsp:param name="itemDescriptor" value="visit"/>
                         <ul>
@@ -107,12 +105,12 @@
                     </dsp:droplet>
                 </div>
 
-                <h4>Scores of person James(id - 1)</h4>
+                <h4>Scores of Person: (id - ${personIdTest})</h4>
                 <div class="table-responsive">
                     <dsp:droplet name="/atg/dynamo/droplet/RQLQueryRange">
-                        <dsp:param name="personId" value="1"/>
+                        <dsp:param name="personId" value="${personIdTest}"/>
                         <dsp:param name="queryRQL" value="personId = :personId order by scoreNumber sort asc"/>
-                        <dsp:param name="repository" value="/com/training/components/repository/PersonRepository1"/>
+                        <dsp:param name="repository" value="/com/training/components/repository/PersonRepository"/>
                         <dsp:param name="howMany" value="10"/>
                         <dsp:param name="itemDescriptor" value="score"/>
                         <ul>
@@ -125,6 +123,12 @@
                             </dsp:oparam>
                         </ul>
                     </dsp:droplet>
+                </div>
+                <div class="input-group mb-3 col-md-4">
+                    <dsp:form name="personNameForm">
+                        <dsp:input iclass="form-control" type="text"  bean="/com/training/components/handlers/PersonFormHandler.personId"/>
+                        <dsp:input iclass="btn btn-primary" type="submit" name="button" value="submit" bean="/com/training/components/handlers/PersonFormHandler.PersonTitle"/>
+                    </dsp:form>
                 </div>
 
             </div>
