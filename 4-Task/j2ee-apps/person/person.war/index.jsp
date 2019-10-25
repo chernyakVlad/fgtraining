@@ -34,7 +34,7 @@
             <dsp:param name="queryRQL" value="all"/>
             <dsp:param name="repository" value="/com/training/components/repository/PersonRepository"/>
             <dsp:param name="howMany" value="10"/>
-            <dsp:param name="itemDescriptor" value="person"></dsp:param>
+            <dsp:param name="itemDescriptor" value="person"/>
 
             <dsp:oparam name="outputStart">
               <dsp:importbean bean="/com/training/components/repositoryFormHandlers/PersonRepositoryFormHandler"/>

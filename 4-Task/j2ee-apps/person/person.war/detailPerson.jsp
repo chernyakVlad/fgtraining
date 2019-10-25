@@ -17,8 +17,17 @@
 
         <div class="card">
           <div class="card-header">
-            Person Id - ${userId}
+            <div class="float-left">
+              Person Id - ${userId}
+            </div>
+            <div class="float-right">
+              <dsp:a href="editPerson.jsp">
+                <dsp:param name="pId" param="personId"/>
+                <div class="btn btn-info btn-sm">edit</div>
+              </dsp:a>
+            </div>
           </div>
+
           <dsp:droplet name="/com/training/components/droplets/GetPersonById">
           <dsp:param name="id" value="${userId}"/>
           <dsp:oparam name="output">
@@ -27,25 +36,73 @@
             <li class="list-group-item">LastName: <dsp:valueof param="element.lastName"></dsp:valueof></li>
           </ul>
         </div>
-        <dsp:droplet name="/atg/dynamo/droplet/ForEach">
-          <dsp:param name="array" param="element.roles"/>
-          <dsp:oparam name="outputStart">
-            <div class="card mt-4">
-            <div class="card-header">
-              Roles:
-            </div>
-            <ul class="list-group list-group-flush">
-          </dsp:oparam>
-          <dsp:oparam name="output">
-            <li class="list-group-item"><dsp:valueof param="element.name"/></li>
-          </dsp:oparam>
-          <dsp:oparam name="outputStart">
-            </ul>
-            </div>
-          </dsp:oparam>
-        </dsp:droplet>
+          <dsp:droplet name="/atg/dynamo/droplet/ForEach">
+            <dsp:param name="array" param="element.roles"/>
+            <dsp:oparam name="outputStart">
+              <div class="card mt-4">
+              <div class="card-header">
+                Roles:
+              </div>
+              <ul class="list-group list-group-flush">
+            </dsp:oparam>
+            <dsp:oparam name="output">
+              <li class="list-group-item"><dsp:valueof param="element.name"/></li>
+            </dsp:oparam>
+            <dsp:oparam name="outputStart">
+              </ul>
+              </div>
+            </dsp:oparam>
+          </dsp:droplet>
+
+          <dsp:droplet name="/atg/dynamo/droplet/ForEach">
+            <dsp:param name="array" param="element.mentoredUsers"/>
+            <dsp:oparam name="outputStart">
+              <div class="card mt-4">
+              <div class="card-header">
+                Mentored:
+              </div>
+              <ul class="list-group list-group-flush">
+            </dsp:oparam>
+            <dsp:oparam name="output">
+              <li class="list-group-item">
+                <dsp:a href="detailPerson.jsp">
+                  <dsp:param name="personId" param="element.id"/>
+                  <dsp:valueof param="element.firstName"/>
+                  <dsp:valueof param="element.lastName"/>
+                </dsp:a>
+              </li>
+            </dsp:oparam>
+            <dsp:oparam name="outputStart">
+              </ul>
+              </div>
+            </dsp:oparam>
+          </dsp:droplet>
+          <dsp:droplet name="/atg/dynamo/droplet/ForEach">
+            <dsp:param name="array" param="element.mentors"/>
+            <dsp:oparam name="outputStart">
+              <div class="card mt-4">
+              <div class="card-header">
+                Mentors:
+              </div>
+              <ul class="list-group list-group-flush">
+            </dsp:oparam>
+            <dsp:oparam name="output">
+              <li class="list-group-item">
+                <dsp:a href="detailPerson.jsp">
+                  <dsp:param name="personId" param="element.id"/>
+                  <dsp:valueof param="element.firstName"/>
+                  <dsp:valueof param="element.lastName"/>
+                </dsp:a>
+              </li>
+            </dsp:oparam>
+            <dsp:oparam name="outputStart">
+              </ul>
+              </div>
+            </dsp:oparam>
+          </dsp:droplet>
         </dsp:oparam>
         </dsp:droplet>
+
       </div>
     </div>
   </div>
