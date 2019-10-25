@@ -10,6 +10,7 @@
             <title>Persons</title>
         </head>
         <body>
+            <c:set var="personIdTest" scope="page"/>
             <div class="col-md-12">
                 <h4>Persons</h4>
                 <div class="table-responsive">
@@ -41,7 +42,7 @@
                 <h4>Roles of Person: (id - ${personIdTest})</h4>
                 <div class="table-responsive">
                     <dsp:droplet name="/atg/dynamo/droplet/RQLQueryRange">
-                        <dsp:param name="id1" value="${personIdTest}"/>
+                        <dsp:param name="id1" value="1"/>
                         <dsp:param name="queryRQL" value="id = :id1"/>
                         <dsp:param name="repository" value="/com/training/components/repository/PersonRepository"/>
                         <dsp:param name="howMany" value="10"/>
@@ -124,12 +125,13 @@
                         </ul>
                     </dsp:droplet>
                 </div>
-                <div class="input-group mb-3 col-md-4">
+                <div class="input-group mb-3">
                     <dsp:form name="personNameForm">
                         <dsp:input iclass="form-control" type="text"  bean="/com/training/components/handlers/PersonFormHandler.personId"/>
                         <dsp:input iclass="btn btn-primary" type="submit" name="button" value="submit" bean="/com/training/components/handlers/PersonFormHandler.PersonTitle"/>
                     </dsp:form>
                 </div>
+
 
             </div>
         </body>
