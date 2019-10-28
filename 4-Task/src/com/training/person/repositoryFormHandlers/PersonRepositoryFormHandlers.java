@@ -22,18 +22,18 @@ public class PersonRepositoryFormHandlers extends RepositoryFormHandler {
     @Override
     protected void postUpdateItemProperties(MutableRepositoryItem pItem) throws ServletException, IOException {
         try {
-            if(rolesList != null){
+            if (rolesList != null) {
                 Set<MutableRepositoryItem> roless = new HashSet<MutableRepositoryItem>();
-                for (String role: rolesList) {
+                for (String role : rolesList) {
                     MutableRepositoryItem roleItem = this.getRepository().getItemForUpdate(role, "role");
                     roless.add(roleItem);
                 }
                 pItem.setPropertyValue("roles", roless);
             }
 
-            if(menotrsIdList != null) {
+            if (menotrsIdList != null) {
                 Set<MutableRepositoryItem> mentors = new HashSet<MutableRepositoryItem>();
-                for (String mentorId: menotrsIdList) {
+                for (String mentorId : menotrsIdList) {
                     MutableRepositoryItem mentorItem = this.getRepository().getItemForUpdate(mentorId, "person");
                     mentors.add(mentorItem);
                 }
