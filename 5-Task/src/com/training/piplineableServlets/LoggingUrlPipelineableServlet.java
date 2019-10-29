@@ -14,7 +14,7 @@ public class LoggingUrlPipelineableServlet extends InsertableServletImpl {
     @Override
     public void service(DynamoHttpServletRequest pRequest, DynamoHttpServletResponse pResponse) throws IOException, ServletException {
         logInfo("LoggingUrlPipelineableServlet: RequestURI:  " + pRequest.getRequestURI());
-        logInfo("LoggingUrlPipelineableServlet: Parameters:  " + pRequest.getParameterMap());
+        //logInfo("LoggingUrlPipelineableServlet: Parameters:  " + pRequest.getParameterMap());
         super.service(pRequest, pResponse);
     }
 }

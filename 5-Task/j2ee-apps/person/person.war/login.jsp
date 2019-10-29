@@ -17,6 +17,25 @@
   <dsp:importbean bean="/atg/dynamo/droplet/Switch"/>
   <dsp:importbean bean="/atg/dynamo/droplet/ForEach"/>
 
+  <dsp:droplet name="Switch">
+    <dsp:param bean="ProfileFormHandler.formError" name="value" />
+    <dsp:oparam name="true">
+      <ul>
+        <dsp:droplet name="ProfileErrorMessageForEach">
+          <dsp:param bean="ProfileFormHandler.formExceptions" name="exceptions" />
+          <dsp:oparam name="output">
+            <li>
+              <div class="alert alert-danger" role="alert">
+                <dsp:valueof param="message" />
+              </div>
+            </li>
+          </dsp:oparam>
+        </dsp:droplet>
+      </ul>
+    </dsp:oparam>
+  </dsp:droplet>
+
+
   <main class="my-form">
     <div class="cotainer">
       <div class="row justify-content-center">

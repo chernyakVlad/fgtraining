@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/main.css">
     <title>Persons</title>
   </head>
+
   <dsp:importbean bean="/atg/userprofiling/ProfileFormHandler"/>
   <dsp:importbean bean="/atg/userprofiling/ProfileErrorMessageForEach"/>
   <dsp:importbean bean="/atg/userprofiling/Profile"/>
@@ -46,7 +47,6 @@
           <div class="card">
             <div class="card-header">Detail</div>
             <div class="card-body">
-
 
             </div>
           </div>
