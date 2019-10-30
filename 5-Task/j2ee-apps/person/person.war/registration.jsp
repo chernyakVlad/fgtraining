@@ -17,6 +17,24 @@
   <dsp:importbean bean="/atg/dynamo/droplet/Switch"/>
   <dsp:importbean bean="/atg/dynamo/droplet/ForEach"/>
 
+  <dsp:droplet name="Switch">
+    <dsp:param bean="ProfileFormHandler.formError" name="value" />
+    <dsp:oparam name="true">
+      <ul>
+        <dsp:droplet name="ProfileErrorMessageForEach">
+          <dsp:param bean="ProfileFormHandler.formExceptions" name="exceptions" />
+          <dsp:oparam name="output">
+            <li>
+              <div class="alert alert-danger" role="alert">
+                <dsp:valueof param="message" />
+              </div>
+            </li>
+          </dsp:oparam>
+        </dsp:droplet>
+      </ul>
+    </dsp:oparam>
+  </dsp:droplet>
+
   <main class="my-form">
     <div class="cotainer">
       <div class="row justify-content-center">
@@ -25,7 +43,7 @@
             <div class="card-header">Register</div>
             <div class="card-body">
               <dsp:form name="my-form" action="registration.jsp" method="post">
-                <dsp:input bean="ProfileFormHandler.createSuccessURL" type="hidden" value="create_success.jsp"/>
+                <dsp:input bean="ProfileFormHandler.createSuccessURL" type="hidden" value="detailProfile.jsp"/>
 
                 <div class="form-group row">
                   <label class="col-md-4 col-form-label text-md-right">Login</label>
@@ -45,6 +63,26 @@
                   <label class="col-md-4 col-form-label text-md-right">Password Confirmation</label>
                   <div class="col-md-6">
                     <dsp:input bean="ProfileFormHandler.value.confirmpassword" iclass="form-control" type="text"/>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-md-4 col-form-label text-md-right">Role</label>
+                  <div class="col-md-6">
+                    <dsp:select bean="ProfileFormHandler.role" iclass="form-control">
+                      <dsp:droplet name="/atg/dynamo/droplet/RQLQueryRange">
+
+                        <dsp:param name="queryRQL" value="all"/>
+                        <dsp:param name="repository" value="/atg/userprofiling/ProfileAdapterRepository"/>
+                        <dsp:param name="howMany" value="10"/>
+                        <dsp:param name="itemDescriptor" value="role1"/>
+
+                        <dsp:oparam name="output">
+                          <dsp:option paramvalue="element.repositoryId"><dsp:valueof param="element.name"/></dsp:option>
+                        </dsp:oparam>
+
+                      </dsp:droplet>
+                    </dsp:select>
                   </div>
                 </div>
 

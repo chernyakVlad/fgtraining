@@ -19,26 +19,36 @@
   <dsp:importbean bean="/atg/dynamo/droplet/Compare"/>
 
   <body>
-  <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
-    <div class="container">
-      <a class="navbar-brand" href="#">5-Task</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <dsp:form name="my-form" action="index.jsp" method="post">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
+      <div class="container">
+        <a class="navbar-brand" href="#">5-Task</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <dsp:form name="my-form" action="detailProfile.jsp" method="post">
-            <li class="nav-item">
-              <dsp:input iclass="btn btn-primary" bean="ProfileFormHandler.logout" type="submit" value="Logout"/>
-            </li>
-          </dsp:form>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <dsp:droplet name="Compare">
+              <dsp:param bean="Profile.securityStatus" name="obj1"/>
+              <dsp:param bean="PropertyManager.securityStatusLogin" name="obj2"/>
+              <dsp:oparam name="equal">
+                <li class="nav-item">
+                  <dsp:input iclass="btn btn-primary" bean="ProfileFormHandler.logout" type="submit" value="Logout"/>
+                </li>
+              </dsp:oparam>
+              <dsp:oparam name="greaterthan">
+                <li class="nav-item">
+                  <dsp:input iclass="btn btn-primary" bean="ProfileFormHandler.logout" type="submit"   value="Logout"/>
+                </li>
+              </dsp:oparam>
+            </dsp:droplet>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
-
+    </nav>
+  </dsp:form>
 
   <main class="my-form">
     <div class="cotainer">
@@ -47,6 +57,24 @@
           <div class="card">
             <div class="card-header">Detail</div>
             <div class="card-body">
+
+              <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Login</label>
+                <div class="col-md-6">
+                  <div class="form-control">
+                    <dsp:valueof bean="ProfileFormHandler.value.login"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">E-mail</label>
+                <div class="col-md-6">
+                  <div class="form-control">
+                    <dsp:valueof bean="ProfileFormHandler.value.email"/>
+                  </div>
+                </div>
+              </div>
 
             </div>
           </div>

@@ -17,6 +17,12 @@
      </table>
   </item-descriptor>
 
+    <item-descriptor name="role1">
+        <table name="dps_role" type="primary" id-column-name="role_id">
+            <property name="name" data-type="string" column-name="name" />
+        </table>
+    </item-descriptor>
+
 
   <item-descriptor name="action">
     <table name="login_info" type="primary" id-column-name="action_id">

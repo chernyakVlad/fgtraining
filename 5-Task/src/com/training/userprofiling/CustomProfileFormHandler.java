@@ -13,11 +13,22 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 
 public class CustomProfileFormHandler extends atg.userprofiling.ProfileFormHandler {
     public static  final int LOCK_TIME_IN_MINUTES  = 5;
+    String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     @Override
     public boolean handleLogin(DynamoHttpServletRequest pRequest, DynamoHttpServletResponse pResponse) throws ServletException, IOException {
@@ -45,6 +56,26 @@ public class CustomProfileFormHandler extends atg.userprofiling.ProfileFormHandl
         }
 
         return true;
+    }
+
+    @Override
+    protected void postCreateUser(DynamoHttpServletRequest pRequest, DynamoHttpServletResponse pResponse) throws ServletException, IOException {
+        try {
+            if (role != null) {
+                Set<MutableRepositoryItem> roless = new HashSet<MutableRepositoryItem>();
+
+                MutableRepositoryItem roleItem = this.getProfile().getProfileTools().getProfileRepository().getItemForUpdate(role, "role");
+                roless.add(roleItem);
+                MutableRepository repository = this.getProfileTools().getProfileRepository();
+                MutableRepositoryItem mutableItem = repository.getItemForUpdate(this.getRepositoryId(), this.getCreateProfileType());
+                mutableItem.setPropertyValue("roles", roless);
+                repository.updateItem(mutableItem);
+            }
+
+        } catch (RepositoryException e) {
+            e.printStackTrace();
+        }
+        super.postCreateUser(pRequest, pResponse);
     }
 
     private void addLoginLock(String userId, int timeInMinutes) {
