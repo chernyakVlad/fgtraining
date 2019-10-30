@@ -11,9 +11,9 @@
     </table>
   </item-descriptor>
 
-  <item-descriptor name="blockTime">
-    <table name="user_block_until" type="primary" id-column-name="user_id">
-      <property name="blockEntryUntil" data-type="timestamp" column-name="block_time" />
+  <item-descriptor name="userLokedForLogin">
+    <table name="users_loked_for_login" type="primary" id-column-name="user_id">
+      <property name="blockUntil" data-type="timestamp" column-name="block_time" />
      </table>
   </item-descriptor>
 

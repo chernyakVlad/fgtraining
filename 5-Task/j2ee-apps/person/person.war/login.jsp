@@ -41,7 +41,7 @@
       <div class="row justify-content-center">
         <div class="col-md-6">
           <div class="card">
-            <div class="card-header">Register</div>
+            <div class="card-header">Login</div>
             <div class="card-body">
               <dsp:form name="my-form" action="login.jsp" method="post">
                 <dsp:input bean="ProfileFormHandler.loginSuccessURL" type="hidden" value="detailProfile.jsp"/>
