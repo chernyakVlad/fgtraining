@@ -56,6 +56,7 @@ public class CustomProfileFormHandler extends atg.userprofiling.ProfileFormHandl
         }
 
         return true;
+
     }
 
     @Override

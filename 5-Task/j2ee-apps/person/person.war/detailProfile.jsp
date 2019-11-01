@@ -76,6 +76,17 @@
                 </div>
               </div>
 
+              <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Roles</label>
+                <div class="col-md-6">
+                  <dsp:droplet name="/atg/dynamo/droplet/ForEach">
+                    <dsp:param name="array" bean="ProfileFormHandler.value.roles"/>
+                    <dsp:oparam name="output">
+                      <li class="list-group-item"><dsp:valueof param="element.name"/></li>
+                    </dsp:oparam>
+                  </dsp:droplet>
+                </div>
+              </div>
             </div>
           </div>
         </div>

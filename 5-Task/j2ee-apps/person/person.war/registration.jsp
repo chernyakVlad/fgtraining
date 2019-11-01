@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js"></script>
     <title>Persons</title>
   </head>
   <body>
@@ -42,7 +43,7 @@
           <div class="card">
             <div class="card-header">Register</div>
             <div class="card-body">
-              <dsp:form name="my-form" action="registration.jsp" method="post">
+              <dsp:form onsubmit="return validform()" name="my-form" action="registration.jsp" method="post">
                 <dsp:input bean="ProfileFormHandler.createSuccessURL" type="hidden" value="detailProfile.jsp"/>
 
                 <div class="form-group row">
@@ -104,10 +105,7 @@
       </div>
     </div>
     </div>
-
   </main>
-
-
   </body>
   </html>
 </dsp:page>
