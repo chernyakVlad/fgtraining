@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+ATG-Required: 6-Task DCS-UI.Versioned BIZUI PubPortlet DafEar.Admin DCS.Versioned DCS-UI DCS-UI.SiteAdmin.Versioned SiteAdmin.Versioned
+ATG-Config-Path: config/
+
+
+

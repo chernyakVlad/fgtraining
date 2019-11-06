@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Security//EN"
+        "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+    <header>
+        <name>TaskRepProd</name>
+        <author>com.training</author>
+        <version>1</version>
+    </header>
+
+    <item-descriptor display-name="person"  name="person">
+        <table name="person" type="primary" id-column-name="id">
+            <property name="id" display-name="ID" data-type="string" column-name="id"/>
+            <property name="firstName" display-name="FIRST NAME" data-type="string" column-name="first_name"/>
+            <property name="lastName" display-name="LAST NAME" data-type="string" column-name="last_name"/>
+        </table>
+        <table name="person_to_resume" type="multi" id-column-name="person_id">
+            <property name="resume" display-name="RESUME" data-type="set" component-item-type="resume" column-name="resume_id" />
+        </table>
+    </item-descriptor>
+
+    <item-descriptor display-name="resume"  name="resume">
+        <table name="resume" type="primary" id-column-name="id">
+            <property name="id" display-name="ID" data-type="string" column-name="id"/>
+            <property name="name" display-name="NAME" data-type="string" column-name="name" required="true"/>
+            <property name="about" display-name="ABOUT" data-type="string" column-name="about" required="true"/>
+        </table>
+        <table name="skill_to_resume" type="multi" id-column-name="resume_id">
+            <property name="skills" display-name="SKILLS" data-type="set" component-item-type="skill" column-name="skill_id" />
+        </table>
+    </item-descriptor>
+
+    <item-descriptor display-name="skill"  name="skill">
+        <table name="skill" type="primary" id-column-name="id">
+            <property name="id" display-name="ID" data-type="string" column-name="id"/>
+            <property name="name" display-name="NAME" data-type="string" column-name="name" required="true"/>
+        </table>
+    </item-descriptor>
+
+</gsa-template>
