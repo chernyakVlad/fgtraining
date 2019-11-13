@@ -3,6 +3,7 @@
         "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
 
 <gsa-template>
+
     <header>
         <name>TaskRep</name>
         <author>com.training</author>
