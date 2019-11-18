@@ -31,6 +31,7 @@
                 <dsp:input bean="PersonRepositoryFormHandler.value.lastName" iclass="form-control" type="text"/>
               </li>
               <dsp:input bean="PersonRepositoryFormHandler.repositoryId" type="hidden" value="${userId1}"   />
+              <dsp:input bean="PersonRepositoryFormHandler.deleteMentor" type="submit" iclass="btn btn-primary" value="DelMent" />
               <dsp:input bean="PersonRepositoryFormHandler.update" type="submit" iclass="btn btn-primary" value="Edit" />
               <dsp:input bean="PersonRepositoryFormHandler.updateSuccessURL" type="hidden" value="index.jsp"/>
 

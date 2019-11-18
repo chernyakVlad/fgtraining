@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE browse-hierarchy SYSTEM "dynamosystemresource:/atg/dtds/browse-hierarchy/browse-hierarchy_1.0.dtd">
+
+<browse-hierarchy root="home" xml-combine="append">
+    <browse-item id="home" xml-combine="append">
+        <browse-item reference-id="personRep"/>
+    </browse-item>
+
+    <browse-item id="personRep" label="PersonCVRep" is-root="true" icon-resource="node.priceLists.iconSmall">
+        <browse-item reference-id="personCat"/>
+        <browse-item reference-id="resumeCat"/>
+        <browse-item reference-id="skillCat"/>
+    </browse-item>
+
+    <browse-item is-root="true" id="personCat" create-allowed="false" show-count="false" label="Person" multisite="any" bin="false">
+        <list-definition show-count-on-header="false" id="personFolders" set-site-context-on-drilldown="false" retriever="query" visible="true" allow-drilldown="true" show-count-on-children="false" show-header="conditionally" allow-load="true" allow-circular-reference="false" child-type="/com/training/components/repository/PersonCVRepository:person">
+            <retriever-parameter name="query" value="ALL"/>
+        </list-definition>
+    </browse-item>
+
+    <browse-item is-root="true" id="resumeCat" create-allowed="false" show-count="false" label="Resume" multisite="any" bin="false">
+        <list-definition show-count-on-header="false" id="resumeFolders" set-site-context-on-drilldown="false" retriever="query" visible="true" allow-drilldown="true" show-count-on-children="false" show-header="conditionally" allow-load="true" allow-circular-reference="false" child-type="/com/training/components/repository/PersonCVRepository:resume">
+            <retriever-parameter name="query" value="ALL"/>
+        </list-definition>
+    </browse-item>
+
+    <browse-item is-root="true" id="skillCat" create-allowed="false" show-count="false" label="Skill" multisite="any" bin="false">
+        <list-definition show-count-on-header="false" id="skillFolders" set-site-context-on-drilldown="false" retriever="query" visible="true" allow-drilldown="true" show-count-on-children="false" show-header="conditionally" allow-load="true" allow-circular-reference="false" child-type="/com/training/components/repository/PersonCVRepository:skill">
+            <retriever-parameter name="query" value="ALL"/>
+        </list-definition>
+    </browse-item>
+</browse-hierarchy>

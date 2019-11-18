@@ -18,6 +18,7 @@ import java.util.Set;
 public class PersonRepositoryFormHandlers extends RepositoryFormHandler {
     String[] rolesList;
     String[] menotrsIdList;
+    String mentorId;
 
     @Override
     protected void postUpdateItemProperties(MutableRepositoryItem pItem) throws ServletException, IOException {
@@ -44,6 +45,26 @@ public class PersonRepositoryFormHandlers extends RepositoryFormHandler {
         }
         super.postUpdateItemProperties(pItem);
     }
+
+
+    public  void handleDeleteMentor(DynamoHttpServletRequest req, DynamoHttpServletResponse res)  {
+        String mentorId = "6";
+        try {
+            MutableRepositoryItem person = this.getRepository().getItemForUpdate("1", "person");
+            Set<RepositoryItem> mentors = (Set<RepositoryItem>) person.getPropertyValue("mentors");
+            for(RepositoryItem ment: mentors) {
+                mentors.remove(ment);
+            }
+            person.setPropertyValue("mentors", mentors);
+
+        } catch (RepositoryException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 
     public String[] getRolesList() {
         return rolesList;

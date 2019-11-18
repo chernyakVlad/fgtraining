@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class CustomProfileFormHandler extends atg.userprofiling.ProfileFormHandler {
-    public static  final int LOCK_TIME_IN_MINUTES  = 5;
+        public static  final int LOCK_TIME_IN_MINUTES  = 5;
     private String role;
     private String searchString;
 
@@ -28,6 +28,7 @@ public class CustomProfileFormHandler extends atg.userprofiling.ProfileFormHandl
             MutableRepository repository = this.getProfileTools().getProfileRepository();
             MutableRepositoryItem mutableItem = null;
             mutableItem = repository.getItemForUpdate(this.getRepositoryId(), this.getCreateProfileType());
+
             mutableItem.setPropertyValue("lastSearch", searchString);
             repository.updateItem(mutableItem);
         } catch (RepositoryException e) {
