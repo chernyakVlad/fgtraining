@@ -22,7 +22,7 @@ public class SkillFormHandler extends GenericFormHandler {
     private MutableRepository repository = null;
     private String transactionDemacrationMode;
 
-    public void handleAddSkillUpdate(DynamoHttpServletRequest req, DynamoHttpServletResponse res) throws ServletException, IOException {
+    public void handleAddSkill(DynamoHttpServletRequest req, DynamoHttpServletResponse res) throws ServletException, IOException {
         long startTime = System.currentTimeMillis();
         TransactionManager tm = this.getTransactionManager();
         TransactionDemarcation td = new TransactionDemarcation();
@@ -80,7 +80,7 @@ public class SkillFormHandler extends GenericFormHandler {
         }
     }
 
-    public void handleAddSkillUpdate1(DynamoHttpServletRequest req, DynamoHttpServletResponse res) throws ServletException, IOException {
+    public void handleAddSkillInSeparateTransactions(DynamoHttpServletRequest req, DynamoHttpServletResponse res) throws ServletException, IOException {
         long startTime = System.currentTimeMillis();
 
         String[] personIdArr = personIdsString.split(",");
@@ -133,7 +133,6 @@ public class SkillFormHandler extends GenericFormHandler {
         Repository r = this.getRepository();
         return r instanceof RepositoryImpl ? ((RepositoryImpl)r).getTransactionManager() : null;
     }
-
 
     @Override
     public void logInfo(String pMessage) {
