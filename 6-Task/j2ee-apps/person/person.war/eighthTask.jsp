@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="dsp" uri="/WEB-INF/tld/dspjspTaglib1_0.tld" %>
 <%@ taglib prefix="c" uri="/WEB-INF/tld/c.tld" %>
+<%@ page import = "java.util.Date;"%>
 
 <dsp:page>
+  <dsp:getvalueof var="product" param="product"/>
+  <dsp:getvalueof var="siteId" param="siteId"/>
   <html>
   <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -14,6 +17,8 @@
   <dsp:importbean bean="/com/training/components/formHandlers/SkillFormHandler"/>
   <dsp:importbean bean="/atg/dynamo/droplet/Switch"/>
   <dsp:importbean bean="/atg/userprofiling/ProfileErrorMessageForEach"/>
+  <dsp:importbean bean="/atg/dynamo/droplet/multisite/SiteLinkDroplet"/>
+  <dsp:importbean bean="/atg/dynamo/droplet/multisite/SiteIdForItem"/>
 
   <dsp:droplet name="Switch">
     <dsp:param bean="SkillFormHandler.formError" name="value" />
@@ -79,7 +84,7 @@
               <div class="form-group row">
                 <label class="col-md-4 col-form-label text-md-right">Transaction Mode</label>
                 <div class="col-md-6">
-                  <dsp:select bean="SkillFormHandler.transactionDemacrationMode" iclass="form-control">
+                  <dsp:select bean="SkillFormHandler.transactionDemarcationMode" iclass="form-control">
                     <dsp:option value="1">NOT_SUPPORTED</dsp:option>
                     <dsp:option value="2">SUPPORTS</dsp:option>
                     <dsp:option value="3">REQUIRED</dsp:option>
@@ -90,10 +95,25 @@
                 </div>
               </div>
 
-              <div class="col-md-6 offset-md-4">
-                <dsp:input iclass="btn btn-primary" bean="SkillFormHandler.addSkillUpdate" type="submit" value="Update"/>
-                <dsp:input iclass="btn btn-primary" bean="SkillFormHandler.addSkillUpdate1" type="submit" value="Update1"/>
+              <div class="form-group row">
+                <dsp:droplet name="/atg/dynamo/droplet/multisite/GetSiteDroplet">
+                  <dsp:param name="siteId" value="300004"/>
+                  <dsp:oparam name="output">
+                    <dsp:getvalueof var="closeDate" param="site.id" vartype="java.util.Integer"/>
+                    ${closeDate}
+                    ${currentSite}
+
+                  </dsp:oparam>
+                </dsp:droplet>
+
               </div>
+
+              <div class="col-md-6 offset-md-4">
+                <dsp:input iclass="btn btn-primary" bean="SkillFormHandler.addSkill" type="submit" value="Add Skill"/>
+                <dsp:input iclass="btn btn-primary" bean="SkillFormHandler.addSkillInSeparateTransactions" type="submit" value="Add Skill in separete transactions"/>
+              </div>
+
+
 
             </div>
           </div>

@@ -1,6 +1,5 @@
 package com.training.formHandlers;
 
-import atg.common.access.Transaction;
 import atg.droplet.DropletException;
 import atg.droplet.GenericFormHandler;
 import atg.dtm.TransactionDemarcation;
@@ -13,22 +12,21 @@ import javax.servlet.ServletException;
 import javax.transaction.SystemException;
 import javax.transaction.TransactionManager;
 import java.io.IOException;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 public class SkillFormHandler extends GenericFormHandler {
     private String personIdsString;
     private String addedSkillId;
     private MutableRepository repository = null;
-    private String transactionDemacrationMode;
+    private String transactionDemarcationMode;
 
     public void handleAddSkill(DynamoHttpServletRequest req, DynamoHttpServletResponse res) throws ServletException, IOException {
         long startTime = System.currentTimeMillis();
         TransactionManager tm = this.getTransactionManager();
         TransactionDemarcation td = new TransactionDemarcation();
         try{
-            td.begin(tm, Integer.parseInt(transactionDemacrationMode));
-            logInfo("Transaction has been started, transaction mode - " + transactionDemacrationMode);
+            td.begin(tm, Integer.parseInt(transactionDemarcationMode));
+            logInfo("Transaction has been started, transaction mode - " + transactionDemarcationMode);
 
             String[] personIdArr = personIdsString.split(",");
             int i = 0;
@@ -165,11 +163,11 @@ public class SkillFormHandler extends GenericFormHandler {
         this.addedSkillId = addedSkillId;
     }
 
-    public String getTransactionDemacrationMode() {
-        return transactionDemacrationMode;
+    public String getTransactionDemarcationMode() {
+        return transactionDemarcationMode;
     }
 
-    public void setTransactionDemacrationMode(String transactionDemacrationMode) {
-        this.transactionDemacrationMode = transactionDemacrationMode;
+    public void setTransactionDemarcationMode(String transactionDemarcationMode) {
+        this.transactionDemarcationMode = transactionDemarcationMode;
     }
 }

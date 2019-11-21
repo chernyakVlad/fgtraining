@@ -3,21 +3,33 @@
 <%@ taglib prefix="c" uri="/WEB-INF/tld/c.tld" %>
 
 <dsp:page>
+  <dsp:getvalueof var="contextPath" bean="/OriginatingRequest.contextPath"/>
+  <dsp:importbean bean="/atg/multisite/Site" var="currentSite"/>
+  <dsp:importbean bean="/atg/store/StoreConfiguration" var="storeConfiguration"/>
+  <dsp:importbean bean="/atg/userprofiling/ProfileFormHandler"/>
+  <dsp:importbean bean="/atg/userprofiling/Profile"/>
+  <dsp:importbean bean="/atg/userprofiling/ProfileFormHandler"/>
+  <dsp:importbean bean="/atg/userprofiling/PropertyManager"/>
+  <dsp:importbean bean="/atg/dynamo/droplet/Compare"/>
+
   <html>
     <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/main.css">
-        <title>Persons</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <title>Persons</title>
+      <dsp:getvalueof var="siteCssFile" bean="Site.cssFile" />
+      <link rel="stylesheet" href="${contextPath}/css/${siteCssFile}"/>
     </head>
-    <body>
-    <dsp:importbean bean="/atg/userprofiling/ProfileFormHandler"/>
-    <dsp:importbean bean="/atg/userprofiling/Profile"/>
-    <dsp:importbean bean="/atg/userprofiling/ProfileFormHandler"/>
-    <dsp:importbean bean="/atg/userprofiling/PropertyManager"/>
-    <dsp:importbean bean="/atg/dynamo/droplet/Compare"/>
 
-    <dsp:form name="my-form" action="index.jsp" method="post">
+    <body>
+    <a href="#">${currentSite.id}</a>
+    <dsp:droplet name="/atg/dynamo/droplet/multisite/SiteLinkDroplet">
+      <dsp:param name="siteId" value="${currentSite.id}"/>
+      <dsp:oparam name="output">
+        <dsp:getvalueof var="siteLinkUrl1" scope="request" param="url"/>
+      </dsp:oparam>
+    </dsp:droplet>
+    <dsp:form name="my-form" action="${siteLinkUrl1}" method="post">
     <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
       <div class="container">
         <a class="navbar-brand" href="#">7-Task</a>
@@ -33,20 +45,34 @@
             <dsp:param bean="PropertyManager.securityStatusLogin" name="obj2"/>
             <dsp:oparam name="lessthan">
               <li class="nav-item">
-                <dsp:a iclass="nav-link" href="login.jsp">Login</dsp:a>
+                <dsp:droplet name="/atg/dynamo/droplet/multisite/SiteLinkDroplet">
+                  <dsp:param name="siteId" value="${currentSite.id}"/>
+                  <dsp:param name="path" value="/login.jsp"/>
+                  <dsp:oparam name="output">
+                    <dsp:getvalueof var="siteLinkUrl" scope="request" param="url"/>
+                  </dsp:oparam>
+                </dsp:droplet>
+                <dsp:a iclass="nav-link" href="${siteLinkUrl}">Login</dsp:a>
               </li>
               <li class="nav-item">
-                <dsp:a iclass="nav-link" href="registration.jsp">Registration</dsp:a>
+                <dsp:droplet name="/atg/dynamo/droplet/multisite/SiteLinkDroplet">
+                  <dsp:param name="siteId" value="${currentSite.id}"/>
+                  <dsp:param name="path" value="/registration.jsp"/>
+                  <dsp:oparam name="output">
+                    <dsp:getvalueof var="siteLinkUrl2" scope="request" param="url"/>
+                  </dsp:oparam>
+                </dsp:droplet>
+                <dsp:a iclass="nav-link" href="${siteLinkUrl2}">Registration</dsp:a>
               </li>
             </dsp:oparam>
-              <dsp:oparam name="equal">
-                <li class="nav-item">
-                  <dsp:input iclass="btn btn-primary" bean="ProfileFormHandler.logout" type="submit" value="Logout"/>
-                </li>
-              </dsp:oparam>
+            <dsp:oparam name="equal">
+              <li class="nav-item">
+                <dsp:input iclass="btn btn-primary" bean="ProfileFormHandler.logout" type="submit" value="Logout"/>
+              </li>
+            </dsp:oparam>
             <dsp:oparam name="greaterthan">
               <li class="nav-item">
-                <dsp:input iclass="btn btn-primary" bean="ProfileFormHandler.logout" type="submit"   value="Logout"/>
+                <dsp:input iclass="btn btn-primary" bean="ProfileFormHandler.logout" type="submit" value="Logout"/>
               </li>
             </dsp:oparam>
             </dsp:droplet>
@@ -55,6 +81,7 @@
       </div>
     </nav>
     </dsp:form>
+
     </body>
   </html>
 </dsp:page>

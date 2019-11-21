@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!DOCTYPE gsa-template
+        PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN"
+        "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+    <item-descriptor name="siteConfiguration">
+        <table id-column-names="id" name="site_configuration" type="primary" shared-table-sequence="1">
+            <property name="cssFile" data-type="string" column-name="css_file_name" display-name="CSS File"/>
+        </table>
+    </item-descriptor>
+</gsa-template>

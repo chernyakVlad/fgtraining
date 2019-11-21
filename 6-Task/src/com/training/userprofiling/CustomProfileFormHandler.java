@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class CustomProfileFormHandler extends atg.userprofiling.ProfileFormHandler {
-        public static  final int LOCK_TIME_IN_MINUTES  = 5;
+    public static  final int LOCK_TIME_IN_MINUTES  = 5;
     private String role;
     private String searchString;
 

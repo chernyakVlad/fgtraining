@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="/WEB-INF/tld/c.tld" %>
 
 <dsp:page>
+  <dsp:importbean bean="/atg/multisite/Site" var="currentSite"/>
+  <dsp:importbean bean="/atg/store/StoreConfiguration" var="storeConfiguration"/>
+
   <html>
   <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -10,6 +13,8 @@
     <link rel="stylesheet" href="css/main.css">
     <script src="js/main.js"></script>
     <title>Persons</title>
+    <dsp:getvalueof var="siteCssFile" bean="Site.cssFile" />
+    <link rel="stylesheet" href="${contextPath}/css/${siteCssFile}"/>
   </head>
   <body>
 
@@ -43,7 +48,15 @@
           <div class="card">
             <div class="card-header">Register</div>
             <div class="card-body">
-              <dsp:form onsubmit="return validform()" name="my-form" action="registration.jsp" method="post">
+              <dsp:droplet name="/atg/dynamo/droplet/multisite/SiteLinkDroplet">
+                <dsp:param name="siteId" value="${currentSite.id}"/>
+                <dsp:param name="path" value="/registration.jsp"/>
+                <dsp:oparam name="output">
+                  <dsp:getvalueof var="siteLinkUrl" scope="request" param="url"/>
+                </dsp:oparam>
+              </dsp:droplet>
+              ${siteLinkUrl}
+              <dsp:form name="my-form" action="${siteLinkUrl}" method="post">
                 <dsp:input bean="ProfileFormHandler.createSuccessURL" type="hidden" value="detailProfile.jsp"/>
 
                 <div class="form-group row">
@@ -66,8 +79,6 @@
                     <dsp:input bean="ProfileFormHandler.value.confirmpassword" iclass="form-control" type="text"/>
                   </div>
                 </div>
-
-
 
                 <div class="form-group row">
                   <label class="col-md-4 col-form-label text-md-right">E-mail</label>

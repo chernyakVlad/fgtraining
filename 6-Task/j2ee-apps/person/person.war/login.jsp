@@ -3,12 +3,17 @@
 <%@ taglib prefix="c" uri="/WEB-INF/tld/c.tld" %>
 
 <dsp:page>
+  <dsp:importbean bean="/atg/multisite/Site" var="currentSite"/>
+  <dsp:importbean bean="/atg/store/StoreConfiguration" var="storeConfiguration"/>
+
   <html>
   <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
     <title>Persons</title>
+    <dsp:getvalueof var="siteCssFile" bean="Site.cssFile" />
+    <link rel="stylesheet" href="${contextPath}/css/${siteCssFile}"/>
   </head>
   <body>
 
@@ -65,6 +70,8 @@
                 </div>
 
               </dsp:form>
+
+
             </div>
           </div>
         </div>

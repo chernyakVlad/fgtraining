@@ -6,7 +6,7 @@
     <module>
         <web>
             <web-uri>person.war</web-uri>
-            <context-root>person</context-root>
+            <context-root>/person</context-root>
         </web>
     </module>
 </application>
