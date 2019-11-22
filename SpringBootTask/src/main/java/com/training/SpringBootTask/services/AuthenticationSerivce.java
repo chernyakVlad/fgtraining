@@ -7,5 +7,6 @@ import org.springframework.security.core.AuthenticationException;
 
 public interface AuthenticationSerivce {
     public JwtToken login(LoginUserForm loginUserForm) throws AuthenticationException, ExpiredJwtException;
+    public JwtToken refresh(String refreshToken) throws AuthenticationException, ExpiredJwtException;
     public void logout();
 }
