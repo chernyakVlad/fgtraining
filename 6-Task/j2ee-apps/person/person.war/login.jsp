@@ -5,12 +5,12 @@
 <dsp:page>
   <dsp:importbean bean="/atg/multisite/Site" var="currentSite"/>
   <dsp:importbean bean="/atg/store/StoreConfiguration" var="storeConfiguration"/>
+  <dsp:getvalueof bean="/OriginatingRequest.contextPath" var="contextPath" />
 
   <html>
   <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/main.css">
     <title>Persons</title>
     <dsp:getvalueof var="siteCssFile" bean="Site.cssFile" />
     <link rel="stylesheet" href="${contextPath}/css/${siteCssFile}"/>
@@ -40,7 +40,6 @@
     </dsp:oparam>
   </dsp:droplet>
 
-
   <main class="my-form">
     <div class="cotainer">
       <div class="row justify-content-center">
@@ -68,10 +67,7 @@
                 <div class="col-md-6 offset-md-4">
                   <dsp:input iclass="btn btn-primary" bean="ProfileFormHandler.login" type="submit" value="Login"/>
                 </div>
-
               </dsp:form>
-
-
             </div>
           </div>
         </div>
@@ -80,8 +76,6 @@
     </div>
 
   </main>
-
-
   </body>
   </html>
 </dsp:page>

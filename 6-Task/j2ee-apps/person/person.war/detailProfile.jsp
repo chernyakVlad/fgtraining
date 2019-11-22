@@ -3,9 +3,17 @@
 <%@ taglib prefix="c" uri="/WEB-INF/tld/c.tld" %>
 
 <dsp:page>
+  <dsp:importbean bean="/atg/userprofiling/ProfileFormHandler"/>
+  <dsp:importbean bean="/atg/userprofiling/ProfileErrorMessageForEach"/>
+  <dsp:importbean bean="/atg/userprofiling/Profile"/>
+  <dsp:importbean bean="/atg/userprofiling/PropertyManager"/>
+  <dsp:importbean bean="/atg/dynamo/droplet/Switch"/>
+  <dsp:importbean bean="/atg/dynamo/droplet/Compare"/>
+  <dsp:importbean bean="/atg/commerce/ShoppingCart"/>
   <dsp:importbean bean="/atg/dynamo/droplet/ForEach"/>
   <dsp:importbean bean="/atg/multisite/Site" var="currentSite"/>
   <dsp:importbean bean="/atg/store/StoreConfiguration" var="storeConfiguration"/>
+  <dsp:getvalueof bean="/OriginatingRequest.contextPath" var="contextPath" />
 
   <html>
   <head>
@@ -17,14 +25,6 @@
     <link rel="stylesheet" href="${contextPath}/css/${siteCssFile}"/>
   </head>
 
-  <dsp:importbean bean="/atg/userprofiling/ProfileFormHandler"/>
-  <dsp:importbean bean="/atg/userprofiling/ProfileErrorMessageForEach"/>
-  <dsp:importbean bean="/atg/userprofiling/Profile"/>
-  <dsp:importbean bean="/atg/userprofiling/PropertyManager"/>
-  <dsp:importbean bean="/atg/dynamo/droplet/Switch"/>
-  <dsp:importbean bean="/atg/dynamo/droplet/Compare"/>
-  <dsp:importbean bean="/atg/commerce/ShoppingCart"/>
-
   <body>
   <dsp:importbean bean="/atg/multisite/Site" var="currentSite"/>
   <a href="#">${currentSite.id}</a>
@@ -34,7 +34,7 @@
         <a class="navbar-brand" href="#">7-Task</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icson"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -152,9 +152,6 @@
                 <dsp:valueof param="element.name"/>
               </dsp:oparam>
               </dsp:droplet>
-
-
-
             </div>
           </div>
         </div>

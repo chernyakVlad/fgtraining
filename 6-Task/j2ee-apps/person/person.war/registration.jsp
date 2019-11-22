@@ -5,13 +5,12 @@
 <dsp:page>
   <dsp:importbean bean="/atg/multisite/Site" var="currentSite"/>
   <dsp:importbean bean="/atg/store/StoreConfiguration" var="storeConfiguration"/>
+  <dsp:getvalueof bean="/OriginatingRequest.contextPath" var="contextPath" />
 
   <html>
   <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <script src="js/main.js"></script>
     <title>Persons</title>
     <dsp:getvalueof var="siteCssFile" bean="Site.cssFile" />
     <link rel="stylesheet" href="${contextPath}/css/${siteCssFile}"/>
