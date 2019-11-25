@@ -1,6 +1,6 @@
 package com.training.SpringBootTask.models.authentication;
 
-public class LoginUserForm {
+public class LoginUser {
     private String login;
     private String password;
 

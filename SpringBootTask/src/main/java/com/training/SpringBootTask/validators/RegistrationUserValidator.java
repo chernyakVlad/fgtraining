@@ -1,6 +1,7 @@
 package com.training.SpringBootTask.validators;
 
 import com.training.SpringBootTask.models.User;
+import com.training.SpringBootTask.models.authentication.RegistrationUser;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,14 +12,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class UserValidator implements Validator {
+public class RegistrationUserValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
-        return User.class.equals(aClass);
+        return RegistrationUser.class.equals(aClass);
     }
 
     public void validate(Object o, Errors errors) {
-        User user = (User) o;
+        RegistrationUser user = (RegistrationUser) o;
 
         if(user.getLogin() == null) {
             errors.rejectValue("login", "negativeValue", new Object[]{"'login'"}, "login required");

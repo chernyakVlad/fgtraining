@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping(value = "/test")
-    public ResponseEntity<String> logout() {
+    public ResponseEntity<String> test() {
         return ResponseEntity.ok("ALL OK");
     }
 }

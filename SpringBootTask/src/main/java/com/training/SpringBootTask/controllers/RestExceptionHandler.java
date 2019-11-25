@@ -1,6 +1,6 @@
 package com.training.SpringBootTask.controllers;
 
-import com.training.SpringBootTask.controllers.exceptions.UserValidationException;
+import com.training.SpringBootTask.exceptions.UserValidationException;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class RestExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     protected ResponseEntity<ExceptionEntity> handleAuthenticationException(AuthenticationException e) {

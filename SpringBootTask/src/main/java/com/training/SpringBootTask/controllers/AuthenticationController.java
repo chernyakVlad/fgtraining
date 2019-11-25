@@ -1,23 +1,23 @@
 package com.training.SpringBootTask.controllers;
 
+import com.training.SpringBootTask.exceptions.UserValidationException;
 import com.training.SpringBootTask.models.User;
 import com.training.SpringBootTask.models.authentication.JwtToken;
-import com.training.SpringBootTask.models.authentication.LoginUserForm;
-import com.training.SpringBootTask.repositorys.UserRepository;
+import com.training.SpringBootTask.models.authentication.LoginUser;
+import com.training.SpringBootTask.models.authentication.RegistrationUser;
 import com.training.SpringBootTask.services.AuthenticationSerivce;
 import com.training.SpringBootTask.services.UserService;
 import com.training.SpringBootTask.services.impl.AuthenticationServiceImpl;
 import com.training.SpringBootTask.services.impl.UserServiceImpl;
-import com.training.SpringBootTask.validators.UserValidator;
-import io.jsonwebtoken.ExpiredJwtException;
+import com.training.SpringBootTask.validators.RegistrationUserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.core.AuthenticationException;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,51 +25,48 @@ import java.util.Optional;
 public class AuthenticationController {
     private UserService userService;
     private AuthenticationSerivce authenticationSerivce;
-    private UserValidator userValidator;
+    private RegistrationUserValidator userValidator;
+    private JwtTokenStore tokenStoreService;
 
     @Autowired
-    public AuthenticationController(UserServiceImpl userService, AuthenticationServiceImpl authenticationSerivce, UserValidator userValidator) {
+    public AuthenticationController(UserServiceImpl userService, AuthenticationServiceImpl authenticationSerivce, RegistrationUserValidator userValidator) {
         this.userService = userService;
         this.userValidator = userValidator;
         this.authenticationSerivce = authenticationSerivce;
     }
 
     @PostMapping(value="/registration")
-    public ResponseEntity<?> createUser(@RequestBody User pUser, BindingResult bindingResult) {
-        userValidator.validate(pUser, bindingResult);
+    public ResponseEntity<?> registration(@RequestBody RegistrationUser rUser, BindingResult bindingResult) {
+        userValidator.validate(rUser, bindingResult);
         if(bindingResult.hasErrors()){
-            Object object = bindingResult.getAllErrors();
-            return  ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+            throw new UserValidationException(createExceptionMessage(bindingResult.getAllErrors()));
         }
-        Optional<User> user = userService.save(pUser);
-        return ResponseEntity.ok(user.get());
+        User user = new User(rUser.getLogin(), rUser.getPassword());
+        Optional<User> userOptional = userService.save(user);
+        return ResponseEntity.ok(userOptional.get());
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<JwtToken> login(@RequestBody LoginUserForm loginUserForm) {
-        try {
-            JwtToken token = authenticationSerivce.login(loginUserForm);
-            return ResponseEntity.ok(token);
-        } catch (AuthenticationException ex) {
-            return new ResponseEntity("Authentication Failed", HttpStatus.BAD_REQUEST);
-        } catch (ExpiredJwtException ex) {
-            return new ResponseEntity("Token Expired", HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<JwtToken> login(@RequestBody LoginUser lUser) {
+        JwtToken token = authenticationSerivce.login(lUser);
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping(value = "/refresh-token")
     public ResponseEntity<JwtToken> refresh(@RequestBody String refreshToken) {
-        try {
-            JwtToken token = authenticationSerivce.refresh(refreshToken);
-            return ResponseEntity.ok(token);
-        } catch (AuthenticationException ex) {
-            return new ResponseEntity("Authentication Failed", HttpStatus.BAD_REQUEST);
-        } catch (ExpiredJwtException ex) {
-            return new ResponseEntity("Token Expired", HttpStatus.BAD_REQUEST);
-        }
+        JwtToken token = authenticationSerivce.refresh(refreshToken);
+        return ResponseEntity.ok(token);
     }
 
     @GetMapping(value = "/logout")
-    public void logout() {
+    public void logout() {}
+
+    private String createExceptionMessage(List<ObjectError> errors){
+        StringBuilder builder = new StringBuilder();
+        errors.forEach((error)->{
+            builder.append(error.getDefaultMessage()).append("\n");
+        });
+
+        return builder.toString();
     }
 }

@@ -1,27 +1,27 @@
 package com.training.SpringBootTask.models.authentication;
 
 public class JwtToken {
-    private  String token;
-    private  String refresh;
+    private  String accessToken;
+    private  String refreshToken;
 
     public JwtToken(String token, String refresh) {
-        this.token = token;
-        this.refresh = refresh;
+        this.accessToken = token;
+        this.refreshToken = refresh;
     }
 
-    public String getToken() {
-        return token;
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
-    public String getRefresh() {
-        return refresh;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setRefresh(String refresh) {
-        this.refresh = refresh;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

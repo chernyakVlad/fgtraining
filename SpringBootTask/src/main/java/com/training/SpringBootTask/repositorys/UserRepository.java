@@ -10,5 +10,6 @@ import java.util.Optional;
 @Component
 public interface UserRepository extends MongoRepository<User, Long> {
     Optional<User> findUserByLogin(String login);
+    Optional<User> findUserById(Long id);
 
 }
