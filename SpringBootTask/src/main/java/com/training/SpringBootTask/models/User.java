@@ -18,7 +18,6 @@ public class User {
 
     private String login;
 
-    @JsonIgnore
     private String password;
 
     private String firstName;

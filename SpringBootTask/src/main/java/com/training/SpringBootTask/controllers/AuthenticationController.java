@@ -6,8 +6,10 @@ import com.training.SpringBootTask.models.authentication.JwtToken;
 import com.training.SpringBootTask.models.authentication.LoginUser;
 import com.training.SpringBootTask.models.authentication.RegistrationUser;
 import com.training.SpringBootTask.services.AuthenticationSerivce;
+import com.training.SpringBootTask.services.TokenStore;
 import com.training.SpringBootTask.services.UserService;
 import com.training.SpringBootTask.services.impl.AuthenticationServiceImpl;
+import com.training.SpringBootTask.services.impl.TokenStoreImpl;
 import com.training.SpringBootTask.services.impl.UserServiceImpl;
 import com.training.SpringBootTask.validators.RegistrationUserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +28,17 @@ public class AuthenticationController {
     private UserService userService;
     private AuthenticationSerivce authenticationSerivce;
     private RegistrationUserValidator userValidator;
-    private JwtTokenStore tokenStoreService;
+    private TokenStore tokenStore;
 
     @Autowired
-    public AuthenticationController(UserServiceImpl userService, AuthenticationServiceImpl authenticationSerivce, RegistrationUserValidator userValidator) {
+    public AuthenticationController(UserServiceImpl userService,
+                                    AuthenticationServiceImpl authenticationSerivce,
+                                    RegistrationUserValidator userValidator,
+                                    TokenStoreImpl tokenStore) {
         this.userService = userService;
         this.userValidator = userValidator;
         this.authenticationSerivce = authenticationSerivce;
+        this.tokenStore = tokenStore;
     }
 
     @PostMapping(value="/registration")
@@ -58,8 +64,10 @@ public class AuthenticationController {
         return ResponseEntity.ok(token);
     }
 
-    @GetMapping(value = "/logout")
-    public void logout() {}
+    @PostMapping(value = "/logout")
+    public void logout(@RequestBody JwtToken accessToken) {
+        tokenStore.removeToken(accessToken.getAccessToken());
+    }
 
     private String createExceptionMessage(List<ObjectError> errors){
         StringBuilder builder = new StringBuilder();

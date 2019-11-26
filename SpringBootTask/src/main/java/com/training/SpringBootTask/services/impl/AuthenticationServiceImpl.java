@@ -4,6 +4,7 @@ import com.training.SpringBootTask.models.authentication.JwtToken;
 import com.training.SpringBootTask.models.authentication.LoginUser;
 import com.training.SpringBootTask.security.JwtTokenProvider;
 import com.training.SpringBootTask.services.AuthenticationSerivce;
+import com.training.SpringBootTask.services.TokenStore;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -22,14 +23,17 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
     private AuthenticationManager authenticationManager;
     private JwtTokenProvider tokenProvider;
     private UserDetailsService userDetailsService;
+    private TokenStore tokenSotre;
 
     @Autowired
     public AuthenticationServiceImpl(AuthenticationManager authenticationManager,
                                      JwtTokenProvider jwtTokenProvider,
+                                     TokenStoreImpl tokenSotre,
                                      @Qualifier("customUserDetailsService") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
         this.tokenProvider = jwtTokenProvider;
+        this.tokenSotre = tokenSotre;
     }
 
     @Override
@@ -43,7 +47,9 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = tokenProvider.generateToken(authentication);
         final String refreshToken = tokenProvider.generateRefreshToken(authentication);
-        return new JwtToken(token, refreshToken);
+        JwtToken jwtToken = new JwtToken(token, refreshToken);
+        tokenSotre.storeToken(jwtToken);
+        return jwtToken;
     }
 
     @Override
@@ -61,6 +67,8 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
     }
 
     @Override
-    public void logout() {}
+    public void logout(String accessToken) {
+        tokenSotre.removeToken(accessToken);
+    }
 }
 

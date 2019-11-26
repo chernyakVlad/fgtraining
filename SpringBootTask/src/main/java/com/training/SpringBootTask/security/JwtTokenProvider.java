@@ -1,7 +1,9 @@
 package com.training.SpringBootTask.security;
 
+import com.training.SpringBootTask.services.impl.TokenStoreImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.JwtException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +21,9 @@ import java.io.Serializable;
 
 @Component
 public class JwtTokenProvider implements Serializable {
+
+    @Autowired
+    TokenStoreImpl tokenStore;
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
@@ -70,6 +75,7 @@ public class JwtTokenProvider implements Serializable {
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
+        tokenStore.checkToken(token);
         final String userName = getUsernameFromToken(token);
         boolean test = userName.equals(userDetails.getUsername()) && !isTokenExpired(token);
         return test;
