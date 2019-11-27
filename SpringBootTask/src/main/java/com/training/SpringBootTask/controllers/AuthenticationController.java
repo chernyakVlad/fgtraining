@@ -13,6 +13,7 @@ import com.training.SpringBootTask.services.impl.TokenStoreImpl;
 import com.training.SpringBootTask.services.impl.UserServiceImpl;
 import com.training.SpringBootTask.validators.RegistrationUserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.validation.BindingResult;
@@ -25,43 +26,36 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
-    private UserService userService;
-    private AuthenticationSerivce authenticationSerivce;
+    private AuthenticationSerivce authSerivce;
     private RegistrationUserValidator userValidator;
     private TokenStore tokenStore;
 
     @Autowired
-    public AuthenticationController(UserServiceImpl userService,
-                                    AuthenticationServiceImpl authenticationSerivce,
+    public AuthenticationController(AuthenticationServiceImpl authenticationSerivce,
                                     RegistrationUserValidator userValidator,
                                     TokenStoreImpl tokenStore) {
-        this.userService = userService;
         this.userValidator = userValidator;
-        this.authenticationSerivce = authenticationSerivce;
+        this.authSerivce = authenticationSerivce;
         this.tokenStore = tokenStore;
     }
 
     @PostMapping(value="/registration")
-    public ResponseEntity<?> registration(@RequestBody RegistrationUser rUser, BindingResult bindingResult) {
+    public ResponseEntity<User> registration(@RequestBody RegistrationUser rUser, BindingResult bindingResult) {
         userValidator.validate(rUser, bindingResult);
         if(bindingResult.hasErrors()){
             throw new UserValidationException(createExceptionMessage(bindingResult.getAllErrors()));
         }
-        User user = new User(rUser.getLogin(), rUser.getPassword());
-        Optional<User> userOptional = userService.save(user);
-        return ResponseEntity.ok(userOptional.get());
+        return ResponseEntity.ok(authSerivce.registration(rUser));
     }
 
     @PostMapping(value = "/login")
     public ResponseEntity<JwtToken> login(@RequestBody LoginUser lUser) {
-        JwtToken token = authenticationSerivce.login(lUser);
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(authSerivce.login(lUser));
     }
 
     @PostMapping(value = "/refresh-token")
     public ResponseEntity<JwtToken> refresh(@RequestBody String refreshToken) {
-        JwtToken token = authenticationSerivce.refresh(refreshToken);
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(authSerivce.refresh(refreshToken));
     }
 
     @PostMapping(value = "/logout")
@@ -74,7 +68,6 @@ public class AuthenticationController {
         errors.forEach((error)->{
             builder.append(error.getDefaultMessage()).append("\n");
         });
-
         return builder.toString();
     }
 }

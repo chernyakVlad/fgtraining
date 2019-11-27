@@ -25,6 +25,7 @@ public class ImageStoreInFileSystem implements ImageStore {
     @Override
     public void save(MultipartFile file, String fileName) throws IOException {
         Path rootPath = Paths.get(ROOT_IMAGES_PATH);
+
         Files.copy(file.getInputStream(), rootPath.resolve(fileName));
     }
 

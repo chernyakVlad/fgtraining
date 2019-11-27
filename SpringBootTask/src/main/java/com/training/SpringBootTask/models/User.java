@@ -1,8 +1,10 @@
 package com.training.SpringBootTask.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -96,9 +98,7 @@ public class User {
         this.weight = weight;
     }
 
-    public String getAvatar() {
-        return avatar;
-    }
+    public String getAvatar() { return avatar; }
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;

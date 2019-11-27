@@ -31,8 +31,7 @@ public class TokenStoreImpl implements TokenStore {
 
     @Override
     public JwtToken checkToken(String accessToken) {
-        Optional<JwtToken> jwtTokenOptional = tokenRepository.findByAccessToken(accessToken);
-        jwtTokenOptional.orElseThrow(()-> new InvalidTokenException("Token has been invalid"));
-        return jwtTokenOptional.get();
+        return tokenRepository.findByAccessToken(accessToken)
+                .orElseThrow(() -> new InvalidTokenException("Token has been invalid"));
     }
 }

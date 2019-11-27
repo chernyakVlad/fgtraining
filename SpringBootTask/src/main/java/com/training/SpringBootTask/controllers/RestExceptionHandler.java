@@ -1,5 +1,6 @@
 package com.training.SpringBootTask.controllers;
 
+import com.training.SpringBootTask.exceptions.ItemNotFoundException;
 import com.training.SpringBootTask.exceptions.UserValidationException;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,10 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(new ExceptionEntity("File is not found."), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ItemNotFoundException.class)
+    protected ResponseEntity<ExceptionEntity> handleExpiredJwtException(ItemNotFoundException e) {
+        return new ResponseEntity<>(new ExceptionEntity(e.getMessage()), HttpStatus.NOT_FOUND);
+    }
 
     static class ExceptionEntity {
         private String message;
