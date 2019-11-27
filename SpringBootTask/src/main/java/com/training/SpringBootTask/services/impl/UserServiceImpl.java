@@ -6,6 +6,7 @@ import com.training.SpringBootTask.repositorys.UserRepository;
 import com.training.SpringBootTask.services.TokenStore;
 import com.training.SpringBootTask.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(String id) {
         Optional<User> userOptional = userRepository.findById(id);
         userOptional.orElseThrow(() -> new ItemNotFoundException("No user found with id - " + id));
         return userOptional.get();
@@ -33,9 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByLogin(String login) {
-        Optional<User> userOptional = userRepository.findUserByLogin(login);
-        userOptional.orElseThrow(() -> new ItemNotFoundException("No user found with login - " + login));
-        return userOptional.get();
+        List<User> userOptional = userRepository.findUserByLogin(login);
+        //userOptional.orElseThrow(() -> new ItemNotFoundException("No user found with login - " + login));
+        return userOptional.get(0);
     }
 
     @Override
@@ -48,15 +49,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(long id, User pUser) {
+    public User update(String id, User pUser) {
         User user = findById(id);
         pUser.setId(user.getId());
-        return userRepository.insert(pUser);
+        pUser.setPassword(user.getPassword());
+        return userRepository.save(pUser);
     }
 
     @Override
     public Optional<User> save(User pUser) {
         pUser.setPassword(bCryptPasswordEncoder.encode(pUser.getPassword()));
         return Optional.of(userRepository.save(pUser));
+
+    }
+
+    @Override
+    public User updateUserPhoto(String id, String photoName) {
+        User user = findById(id);
+        user.setAvatar(photoName);
+        return userRepository.save(user);
     }
 }

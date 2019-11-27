@@ -14,10 +14,11 @@ public class User {
     public static final String SEQUENCE_NAME = "users_sequence";
 
     @Id
-    private long id;
+    private String id;
 
     private String login;
 
+    @JsonIgnore
     private String password;
 
     private String firstName;
@@ -28,16 +29,22 @@ public class User {
 
     private String weight;
 
+    private String avatar;
+
+    public User() {
+
+    }
+
     public User(String login, String password) {
         this.login = login;
         this.password = password;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -87,5 +94,13 @@ public class User {
 
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

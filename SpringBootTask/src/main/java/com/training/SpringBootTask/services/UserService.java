@@ -7,8 +7,9 @@ import java.util.Optional;
 
 public interface UserService {
     public User findByLogin(String login);
-    public User findById(Long id);
+    public User findById(String id);
     public List<User> getAll();
-    public User update(long id, User pUser);
+    public User update(String id, User pUser);
     public Optional<User> save(User user);
+    public User updateUserPhoto(String id, String photoName);
 }

@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "task.data.image.root",
+      "type": "java.lang.String",
+      "description": "Description for task.data.image.root."
+  }
+] }

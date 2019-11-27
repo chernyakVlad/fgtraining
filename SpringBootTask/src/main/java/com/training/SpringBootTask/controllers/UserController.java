@@ -6,6 +6,7 @@ import com.training.SpringBootTask.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> getById(@PathVariable long id) {
+    public ResponseEntity<User> getById(@PathVariable String  id) {
         return new ResponseEntity<User>(userService.findById(id), HttpStatus.OK);
     }
 
@@ -37,8 +38,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<User> update(@PathVariable long id, @RequestBody User user) {
-        User user1  = userService.update(id, user);
+    public ResponseEntity<User> update(@PathVariable String id, @RequestBody User user) {
         return new ResponseEntity<User>(userService.update(id, user), HttpStatus.CREATED);
     }
 }

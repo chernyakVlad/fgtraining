@@ -8,6 +8,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.nio.file.NoSuchFileException;
+
 @ControllerAdvice
 public class RestExceptionHandler {
 
@@ -25,6 +27,12 @@ public class RestExceptionHandler {
     protected ResponseEntity<ExceptionEntity> handleUserValidationException(final UserValidationException e) {
         return new ResponseEntity<>(new ExceptionEntity(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(NoSuchFileException.class)
+    protected ResponseEntity<ExceptionEntity> handleExpiredJwtException(NoSuchFileException e) {
+        return new ResponseEntity<>(new ExceptionEntity("File is not found."), HttpStatus.NOT_FOUND);
+    }
+
 
     static class ExceptionEntity {
         private String message;
