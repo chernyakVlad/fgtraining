@@ -33,7 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/webjars/**",
             // -- images api
-            "/api/v1/images/**"
+            "/api/v1/images/**",
+            // -- goals api
+            "/api/v1/goals/**"
     };
 
     @Resource(name = "customUserDetailsService")

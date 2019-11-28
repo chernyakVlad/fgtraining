@@ -44,7 +44,7 @@ public class AuthenticationContollerTest {
 
     @Test
     public void loginUserTest() throws Exception {
-        LoginUser user = new LoginUser("test4", "123456");
+        LoginUser user = new LoginUser("user_2", "123456");
 
         mvc.perform(post("/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)

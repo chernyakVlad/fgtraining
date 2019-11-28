@@ -29,6 +29,5 @@ public class SequenceGeneratorService {
                 new Update().inc("seq",1), options().returnNew(true).upsert(true),
                 DatabaseSequence.class);
         return !Objects.isNull(counter) ? counter.getSeq() : 1;
-
     }
 }

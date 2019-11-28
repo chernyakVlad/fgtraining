@@ -49,11 +49,11 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
     }
 
     @Override
-    public JwtToken login(LoginUser loginUserForm) throws AuthenticationException, ExpiredJwtException {
+    public JwtToken login(LoginUser loginUser) throws AuthenticationException, ExpiredJwtException {
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginUserForm.getLogin(),
-                        loginUserForm.getPassword()
+                        loginUser.getLogin(),
+                        loginUser.getPassword()
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
