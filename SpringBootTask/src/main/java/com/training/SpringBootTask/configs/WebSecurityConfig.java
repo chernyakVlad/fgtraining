@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/webjars/**",
             // -- images api
-            "/api/v1/images/**",
+            "/api/v1/**",
             // -- goals api
             "/api/v1/goals/**"
     };

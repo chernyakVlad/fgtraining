@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@ComponentScan("com.training")
+
 @EnableSwagger2
 public class SpringBootTaskApplication {
 

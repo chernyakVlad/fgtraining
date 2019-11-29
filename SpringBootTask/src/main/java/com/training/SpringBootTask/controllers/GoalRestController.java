@@ -14,12 +14,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/goals")
-public class GoalController {
+public class GoalRestController {
 
     private GoalService goalService;
 
     @Autowired
-    public GoalController(GoalServiceImpl goalService) {
+    public GoalRestController(GoalServiceImpl goalService) {
         this.goalService = goalService;
     }
 
