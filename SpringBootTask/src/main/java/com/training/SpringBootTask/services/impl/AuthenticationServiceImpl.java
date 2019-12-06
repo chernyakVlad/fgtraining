@@ -68,7 +68,7 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
     public JwtToken refresh(String refreshToken) throws AuthenticationException, ExpiredJwtException {
         String username = tokenProvider.getUsernameFromToken(refreshToken);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        if(tokenProvider.validateToken(refreshToken, userDetails)){
+        if (tokenProvider.validateToken(refreshToken, userDetails)) {
             final Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             final String token = tokenProvider.generateToken(authentication);

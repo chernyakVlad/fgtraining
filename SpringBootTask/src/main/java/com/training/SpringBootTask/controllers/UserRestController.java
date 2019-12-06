@@ -40,4 +40,10 @@ public class UserRestController {
     public ResponseEntity<User> update(@PathVariable String id, @RequestBody User user) {
         return new ResponseEntity<User>(userService.update(id, user), HttpStatus.CREATED);
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        userService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

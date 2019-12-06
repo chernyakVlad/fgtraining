@@ -11,7 +11,8 @@ public interface UserService {
     User findByLogin(String login);
     User findById(String id);
     List<User> getAll();
-    User update(String id, User pUser);
     Optional<User> save(User user);
+    User update(String id, User pUser);
+    void delete(String id);
     User updateUserPhoto(String id, MultipartFile file) throws IOException;
 }
