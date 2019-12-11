@@ -18,8 +18,6 @@ import java.util.Optional;
 @ControllerAdvice
 public class RestExceptionHandler {
 
-    private final MediaType vndErrorMediaType = MediaType.parseMediaType("application/vnd.error");
-
     @ExceptionHandler(AuthenticationException.class)
     protected ResponseEntity<ExceptionEntity> handleAuthenticationException(AuthenticationException e) {
         return new ResponseEntity<>(new ExceptionEntity(e.getMessage()), HttpStatus.NOT_FOUND);
@@ -40,11 +38,10 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(new ExceptionEntity("File is not found."), HttpStatus.NOT_FOUND);
     }
 
-  /*  @ExceptionHandler(ItemNotFoundException.class)
-    protected ResponseEntity<VndErrors> handleExpiredJwtException(ItemNotFoundException e) {
-        return this.error(e, HttpStatus.NOT_FOUND, "1");
-        //return new ResponseEntity<>(new ExceptionEntity(e.getMessage()), HttpStatus.NOT_FOUND);
-    }*/
+    @ExceptionHandler(ItemNotFoundException.class)
+    protected ResponseEntity<ExceptionEntity> handleExpiredJwtException(ItemNotFoundException e) {
+        return new ResponseEntity<>(new ExceptionEntity(e.getMessage()), HttpStatus.NOT_FOUND);
+    }
 
     static class ExceptionEntity {
         private String message;

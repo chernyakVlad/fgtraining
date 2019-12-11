@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/goals")
+@CrossOrigin(origins = "http://localhost:3000")
 public class GoalRestController {
 
     private GoalService goalService;

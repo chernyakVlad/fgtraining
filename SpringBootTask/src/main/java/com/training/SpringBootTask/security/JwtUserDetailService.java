@@ -29,12 +29,13 @@ public class JwtUserDetailService implements UserDetailsService {
     }
 
     private UserDetails createUserDetails(User user) {
-       return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), getAuthority());
+       return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), getAuthority(user));
     }
 
-    private Set<SimpleGrantedAuthority> getAuthority() {
+    private Set<SimpleGrantedAuthority> getAuthority(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getRole()));
+
         return authorities;
     }
 }

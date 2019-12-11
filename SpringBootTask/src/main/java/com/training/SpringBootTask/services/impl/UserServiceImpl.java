@@ -61,20 +61,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(String id, User pUser) {
         User user = findById(id);
+        //BeanUtils.copyProperties(pUser, user, "id", "password");
         BeanUtils.copyProperties(pUser, user, "id", "password");
         return userRepository.save(user);
     }
 
     @Override
-    public Optional<User> save(User pUser) {
-        Set<Role> roles = new HashSet<Role>();
-        Role admin = roleRepository.findByRole("ADMIN").get();
-        Role user = roleRepository.findByRole("USER").get();
-        roles.add(admin);
-        roles.add(user);
-        pUser.setRoles(roles);
+    public User save(User pUser) {
+        Role admin = roleRepository.findByRole("USER").get();
+        pUser.setRole(admin);
         pUser.setPassword(bCryptPasswordEncoder.encode(pUser.getPassword()));
-        return Optional.of(userRepository.save(pUser));
+        return userRepository.save(pUser);
+    }
+
+    @Override
+    public User save1(User pUser) {
+        Role admin = roleRepository.findByRole("USER").get();
+        pUser.setRole(admin);
+        pUser.setPassword(bCryptPasswordEncoder.encode("123456"));
+        return userRepository.save(pUser);
     }
 
     @Override
@@ -91,5 +96,11 @@ public class UserServiceImpl implements UserService {
         User user = findById(id);
         user.setAvatar(resource.getURL().toString());
         return userRepository.save(user);
+    }
+
+    @Override
+    public void resetPassword(User user, String newPassword) {
+        user.setPassword(newPassword);
+        userRepository.save(user);
     }
 }

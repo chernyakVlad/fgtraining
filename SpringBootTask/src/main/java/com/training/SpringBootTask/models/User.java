@@ -37,7 +37,7 @@ public class User {
     private String avatar;
 
     @DBRef
-    private Set<Role> roles;
+    private Role role;
 
     public User() {
     }
@@ -109,11 +109,11 @@ public class User {
         this.avatar = avatar;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

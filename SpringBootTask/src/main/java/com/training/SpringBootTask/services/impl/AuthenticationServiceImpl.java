@@ -18,6 +18,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,15 +29,18 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
     private UserDetailsService userDetailsService;
     private TokenStore tokenSotre;
     private UserService userService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public AuthenticationServiceImpl(@Qualifier("customUserDetailsService") UserDetailsService userDetailsService,
                                      AuthenticationManager authenticationManager,
+                                     BCryptPasswordEncoder bCryptPasswordEncoder,
                                      JwtTokenProvider jwtTokenProvider,
                                      UserServiceImpl userServiceImpl,
                                      TokenStoreImpl tokenSotre) {
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.tokenProvider = jwtTokenProvider;
         this.userService = userServiceImpl;
         this.tokenSotre = tokenSotre;
@@ -45,7 +49,7 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
     @Override
     public User registration(RegistrationUser registrationUser) {
         User user = new User(registrationUser.getLogin(), registrationUser.getPassword());
-        return userService.save(user).get();
+        return userService.save(user);
     }
 
     @Override
@@ -76,6 +80,14 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
             return new JwtToken(token, newRefreshToken);
         }
         return null;
+    }
+
+    @Override
+    public void resetPassword(String login, String password, String newPassword) {
+        User user = userService.findByLogin(login);
+        if(bCryptPasswordEncoder.matches(password, user.getPassword())) {
+            userService.resetPassword(user, bCryptPasswordEncoder.encode(newPassword));
+        }
     }
 
     @Override

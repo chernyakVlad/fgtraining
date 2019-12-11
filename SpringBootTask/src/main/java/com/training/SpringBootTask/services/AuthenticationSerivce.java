@@ -11,5 +11,6 @@ public interface AuthenticationSerivce {
     public User registration(RegistrationUser registrationUser);
     public JwtToken login(LoginUser loginUserForm) throws AuthenticationException, ExpiredJwtException;
     public JwtToken refresh(String refreshToken) throws AuthenticationException, ExpiredJwtException;
+    public void resetPassword(String login, String password, String newPassword);
     public void logout(String accessToken);
 }

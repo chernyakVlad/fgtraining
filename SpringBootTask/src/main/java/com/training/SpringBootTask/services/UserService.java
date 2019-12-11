@@ -11,8 +11,10 @@ public interface UserService {
     User findByLogin(String login);
     User findById(String id);
     List<User> getAll();
-    Optional<User> save(User user);
+    User save(User user);
+    User save1(User user);
     User update(String id, User pUser);
+    void resetPassword(User user, String newPassword);
     void delete(String id);
     User updateUserPhoto(String id, MultipartFile file) throws IOException;
 }

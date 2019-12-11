@@ -12,19 +12,19 @@ import com.training.SpringBootTask.services.impl.TokenStoreImpl;
 import com.training.SpringBootTask.validators.LoginUserValidator;
 import com.training.SpringBootTask.validators.RegistrationUserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthenticationController {
     private AuthenticationSerivce authSerivce;
     private RegistrationUserValidator regUserValidator;
@@ -58,6 +58,14 @@ public class AuthenticationController {
             throw new UserValidationException(createExceptionMessage(bindingResult.getAllErrors()));
         }
         return ResponseEntity.ok(authSerivce.login(lUser));
+    }
+
+
+    @PostMapping(value = "/resetPassword")
+    public ResponseEntity<?> resetPassword(@RequestParam String password, @RequestParam String newPassword) {
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        authSerivce.resetPassword(login, password, newPassword);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "/refresh-token")

@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserRestController {
 
     private UserService userService;
@@ -34,6 +35,12 @@ public class UserRestController {
     @GetMapping(value = "/login/{login}")
     public ResponseEntity<User> getByLogin(@PathVariable String login) {
         return new ResponseEntity<User>(userService.findByLogin(login), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "")
+    public ResponseEntity<User> save(@RequestBody User user) {
+
+        return new ResponseEntity<User>(userService.save1(user), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")

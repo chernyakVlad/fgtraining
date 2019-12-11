@@ -16,6 +16,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/users/{id}/photo")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserProfilePhotoRestController {
     private UserService userService;
     private ImageStore imageStore;

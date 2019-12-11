@@ -33,9 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/webjars/**",
             // -- images api
-            "/api/v1/**",
-            // -- goals api
-            "/api/v1/goals/**"
+            "/api/**"
     };
 
     @Resource(name = "customUserDetailsService")
@@ -67,9 +65,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/*").permitAll()
+                .antMatchers("/apv/v1/users/*").permitAll()
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -79,4 +78,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }
+    //
 }
