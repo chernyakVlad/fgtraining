@@ -1,7 +1,7 @@
 package com.training.SpringBootTask.controllers;
 
 import com.training.SpringBootTask.models.GoalTimeBound;
-import com.training.SpringBootTask.models.SMARTGoal;
+import com.training.SpringBootTask.models.Goal;
 import com.training.SpringBootTask.services.GoalService;
 import com.training.SpringBootTask.services.impl.GoalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +25,22 @@ public class GoalRestController {
     }
 
     @GetMapping(value = "")
-    public ResponseEntity<List<SMARTGoal>> getAll() {
-        return new ResponseEntity<List<SMARTGoal>>(goalService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<Goal>> getAll() {
+        return new ResponseEntity<List<Goal>>(goalService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<SMARTGoal> getById(@PathVariable String id) {
-        return new ResponseEntity<SMARTGoal>(goalService.getById(id), HttpStatus.OK);
+    public ResponseEntity<Goal> getById(@PathVariable String id) {
+        return new ResponseEntity<Goal>(goalService.getById(id), HttpStatus.OK);
     }
 
     @GetMapping(value = "/u/{userId}")
-    public ResponseEntity<List<SMARTGoal>> getByUserId(@PathVariable String userId) {
-        return new ResponseEntity<List<SMARTGoal>>(goalService.getByUserId(userId), HttpStatus.OK);
+    public ResponseEntity<List<Goal>> getByUserId(@PathVariable String userId) {
+        return new ResponseEntity<List<Goal>>(goalService.getByUserId(userId), HttpStatus.OK);
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<SMARTGoal> save(@RequestBody SMARTGoal goal, BindingResult bindingResult) {
+    public ResponseEntity<Goal> save(@RequestBody Goal goal, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             throw new RuntimeException();
         }
@@ -48,9 +48,9 @@ public class GoalRestController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<SMARTGoal> update(@PathVariable String id,
-                                            @RequestBody SMARTGoal goal,
-                                            BindingResult bindingResult) {
+    public ResponseEntity<Goal> update(@PathVariable String id,
+                                       @RequestBody Goal goal,
+                                       BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             throw new RuntimeException();
         }
@@ -60,5 +60,11 @@ public class GoalRestController {
     @GetMapping(value = "/t/{goalId}")
     public ResponseEntity<List<GoalTimeBound>> getTimeBoundForTask(@PathVariable String goalId) {
         return new ResponseEntity<>(goalService.getTimeBounForGoal(goalId), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        goalService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

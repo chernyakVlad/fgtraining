@@ -2,7 +2,7 @@ package com.training.SpringBootTask.services.impl;
 
 import com.training.SpringBootTask.exceptions.ItemNotFoundException;
 import com.training.SpringBootTask.models.GoalTimeBound;
-import com.training.SpringBootTask.models.SMARTGoal;
+import com.training.SpringBootTask.models.Goal;
 import com.training.SpringBootTask.repositorys.GoalRepository;
 import com.training.SpringBootTask.repositorys.GoalTimeBoundRepository;
 import com.training.SpringBootTask.services.GoalService;
@@ -25,14 +25,14 @@ public class GoalServiceImpl implements GoalService {
     }
 
     @Override
-    public SMARTGoal getById(String id) {
+    public Goal getById(String id) {
         return goalRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Goal with id - " + id + "not found"));
     }
 
     @Override
-    public List<SMARTGoal> getAll() {
-        List<SMARTGoal> goals = goalRepository.findAll();
+    public List<Goal> getAll() {
+        List<Goal> goals = goalRepository.findAll();
         if(goals.size() <= 0) {
             throw new ItemNotFoundException("No goals found");
         }
@@ -40,8 +40,8 @@ public class GoalServiceImpl implements GoalService {
     }
 
     @Override
-    public List<SMARTGoal> getByUserId(String userId) {
-        List<SMARTGoal> goals = goalRepository.findByUserId(userId);
+    public List<Goal> getByUserId(String userId) {
+        List<Goal> goals = goalRepository.findByUserId(userId);
         if(goals.size() <= 0) {
             throw new ItemNotFoundException("User with id - " + userId + " has no goals");
         }
@@ -49,13 +49,13 @@ public class GoalServiceImpl implements GoalService {
     }
 
     @Override
-    public SMARTGoal save(SMARTGoal goal) {
+    public Goal save(Goal goal) {
         return goalRepository.insert(goal);
     }
 
     @Override
-    public SMARTGoal update(String id, SMARTGoal uGoal) {
-        SMARTGoal goal = this.getById(id);
+    public Goal update(String id, Goal uGoal) {
+        Goal goal = this.getById(id);
         BeanUtils.copyProperties(uGoal, goal, "id");
         return goalRepository.save(goal);
     }
@@ -63,5 +63,12 @@ public class GoalServiceImpl implements GoalService {
     @Override
     public List<GoalTimeBound> getTimeBounForGoal(String goalId) {
         return goalTimeBoundRepository.findAll();
+    }
+
+    @Override
+    public void delete(String id) {
+        Goal goal = goalRepository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException("No goal found with id - " + id));
+        goalRepository.delete(goal);
     }
 }

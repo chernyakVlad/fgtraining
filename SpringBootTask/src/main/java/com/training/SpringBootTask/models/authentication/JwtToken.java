@@ -1,17 +1,20 @@
 package com.training.SpringBootTask.models.authentication;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "tokens")
 public class JwtToken {
+    @Transient
+    public static final String SEQUENCE_NAME = "tokens_sequence";
+
     @Id
     private String id;
     private  String accessToken;
     private  String refreshToken;
 
     public JwtToken(String accessToken, String refreshToken) {
-        this.id = accessToken;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }

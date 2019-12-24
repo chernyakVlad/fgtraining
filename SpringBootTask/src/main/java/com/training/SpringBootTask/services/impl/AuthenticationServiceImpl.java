@@ -85,7 +85,7 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
     @Override
     public void resetPassword(String login, String password, String newPassword) {
         User user = userService.findByLogin(login);
-        if(bCryptPasswordEncoder.matches(password, user.getPassword())) {
+        if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
             userService.resetPassword(user, bCryptPasswordEncoder.encode(newPassword));
         }
     }

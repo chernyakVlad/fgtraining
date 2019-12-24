@@ -4,8 +4,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Document(collection = "goal")
-public class SMARTGoal {
+public class Goal {
     @Transient
     public static final String SEQUENCE_NAME = "goals_sequence";
 
@@ -18,9 +20,15 @@ public class SMARTGoal {
 
     private String measuring;
 
-    private String startDate;
+    private LocalDateTime startDate;
 
-    private String endDate;
+    private LocalDateTime endDate;
+
+    private int measureFrom;
+
+    private int measureTo;
+
+    private String measureLabel;
 
     public String getId() {
         return id;
@@ -54,19 +62,43 @@ public class SMARTGoal {
         this.measuring = measuring;
     }
 
-    public String getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
+    }
+
+    public int getMeasureFrom() {
+        return measureFrom;
+    }
+
+    public void setMeasureFrom(int measureFrom) {
+        this.measureFrom = measureFrom;
+    }
+
+    public int getMeasureTo() {
+        return measureTo;
+    }
+
+    public void setMeasureTo(int measureTo) {
+        this.measureTo = measureTo;
+    }
+
+    public String getMeasureLabel() {
+        return measureLabel;
+    }
+
+    public void setMeasureLabel(String measureLabel) {
+        this.measureLabel = measureLabel;
     }
 }
