@@ -13,5 +13,4 @@ public class SpringBootTaskApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }

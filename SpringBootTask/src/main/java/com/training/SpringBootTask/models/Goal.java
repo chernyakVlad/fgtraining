@@ -101,4 +101,5 @@ public class Goal {
     public void setMeasureLabel(String measureLabel) {
         this.measureLabel = measureLabel;
     }
+
 }
