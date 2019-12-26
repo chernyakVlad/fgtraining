@@ -1,6 +1,6 @@
 package com.training.SpringBootTask.services.util;
 
-import com.training.SpringBootTask.models.DatabaseSequence;
+import com.training.SpringBootTask.entity.DatabaseSequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;

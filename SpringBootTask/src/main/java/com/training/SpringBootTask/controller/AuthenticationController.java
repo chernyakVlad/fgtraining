@@ -1,10 +1,10 @@
-package com.training.SpringBootTask.controllers;
+package com.training.SpringBootTask.controller;
 
-import com.training.SpringBootTask.exceptions.UserValidationException;
-import com.training.SpringBootTask.models.User;
-import com.training.SpringBootTask.models.authentication.JwtToken;
-import com.training.SpringBootTask.models.authentication.LoginUser;
-import com.training.SpringBootTask.models.authentication.RegistrationUser;
+import com.training.SpringBootTask.exception.UserValidationException;
+import com.training.SpringBootTask.entity.User;
+import com.training.SpringBootTask.entity.authentication.JwtToken;
+import com.training.SpringBootTask.entity.authentication.LoginUser;
+import com.training.SpringBootTask.entity.authentication.RegistrationUser;
 import com.training.SpringBootTask.services.AuthenticationSerivce;
 import com.training.SpringBootTask.services.TokenStore;
 import com.training.SpringBootTask.services.impl.AuthenticationServiceImpl;
@@ -43,7 +43,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value="/registration")
-    public ResponseEntity<User> registration(@RequestBody RegistrationUser rUser, BindingResult bindingResult) {
+    public ResponseEntity<User> signUp(@RequestBody RegistrationUser rUser, BindingResult bindingResult) {
         regUserValidator.validate(rUser, bindingResult);
         if(bindingResult.hasErrors()){
             throw new UserValidationException(createExceptionMessage(bindingResult.getAllErrors()));
@@ -52,7 +52,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<JwtToken> login(@RequestBody LoginUser lUser, BindingResult bindingResult) {
+    public ResponseEntity<JwtToken> signIn(@RequestBody LoginUser lUser, BindingResult bindingResult) {
         loginUserValidator.validate(lUser, bindingResult);
         if(bindingResult.hasErrors()) {
             throw new UserValidationException(createExceptionMessage(bindingResult.getAllErrors()));

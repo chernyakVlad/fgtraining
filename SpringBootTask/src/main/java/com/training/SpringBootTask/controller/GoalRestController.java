@@ -1,7 +1,6 @@
-package com.training.SpringBootTask.controllers;
+package com.training.SpringBootTask.controller;
 
-import com.training.SpringBootTask.models.GoalTimeBound;
-import com.training.SpringBootTask.models.Goal;
+import com.training.SpringBootTask.entity.Goal;
 import com.training.SpringBootTask.services.GoalService;
 import com.training.SpringBootTask.services.impl.GoalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,11 +54,6 @@ public class GoalRestController {
             throw new RuntimeException();
         }
         return new ResponseEntity<>(goalService.update(id, goal), HttpStatus.CREATED);
-    }
-
-    @GetMapping(value = "/t/{goalId}")
-    public ResponseEntity<List<GoalTimeBound>> getTimeBoundForTask(@PathVariable String goalId) {
-        return new ResponseEntity<>(goalService.getTimeBounForGoal(goalId), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

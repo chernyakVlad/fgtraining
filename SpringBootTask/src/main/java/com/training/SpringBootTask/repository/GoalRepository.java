@@ -1,6 +1,6 @@
-package com.training.SpringBootTask.repositorys;
+package com.training.SpringBootTask.repository;
 
-import com.training.SpringBootTask.models.Goal;
+import com.training.SpringBootTask.entity.Goal;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

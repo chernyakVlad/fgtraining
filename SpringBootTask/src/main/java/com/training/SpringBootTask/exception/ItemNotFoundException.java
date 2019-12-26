@@ -1,4 +1,4 @@
-package com.training.SpringBootTask.exceptions;
+package com.training.SpringBootTask.exception;
 
 public class ItemNotFoundException extends RuntimeException {
     public ItemNotFoundException(String msg, Throwable t) {

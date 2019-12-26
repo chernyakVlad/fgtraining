@@ -1,13 +1,11 @@
 package com.training.SpringBootTask.services.impl;
 
-import com.training.SpringBootTask.models.authentication.JwtToken;
-import com.training.SpringBootTask.repositorys.TokenRepository;
+import com.training.SpringBootTask.entity.authentication.JwtToken;
+import com.training.SpringBootTask.repository.TokenRepository;
 import com.training.SpringBootTask.services.TokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class TokenStoreImpl implements TokenStore {

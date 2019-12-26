@@ -1,6 +1,6 @@
 package com.training.SpringBootTask.events;
 
-import com.training.SpringBootTask.models.authentication.JwtToken;
+import com.training.SpringBootTask.entity.authentication.JwtToken;
 import com.training.SpringBootTask.services.util.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;

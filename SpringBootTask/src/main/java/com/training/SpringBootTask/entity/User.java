@@ -1,22 +1,20 @@
-package com.training.SpringBootTask.models;
+package com.training.SpringBootTask.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.Set;
+import java.util.List;
 
 
 @Document(collection = "user")
 public class User {
     @Transient
     public static final String SEQUENCE_NAME = "users_sequence";
+    public static final String DEFAULT_USER_ID = "102";
+    public static final String DEFAULT_USER_PASSWORD = "123456";
 
     @Id
     private String id;
@@ -30,14 +28,18 @@ public class User {
 
     private String lastName;
 
-    private String height;
+    private int age;
 
-    private String weight;
+    private int height;
+
+    private int weight;
 
     private String avatar;
 
     @DBRef
     private Role role;
+
+    private List<UserParameterHistoryObject> parameters;
 
     public User() {
     }
@@ -87,19 +89,27 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getHeight() {
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public String getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
@@ -115,5 +125,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<UserParameterHistoryObject> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(List<UserParameterHistoryObject> parameters) {
+        this.parameters = parameters;
     }
 }

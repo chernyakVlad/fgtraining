@@ -1,4 +1,4 @@
-package com.training.SpringBootTask.exceptions;
+package com.training.SpringBootTask.exception;
 
 public class UserValidationException extends RuntimeException {
     public UserValidationException(String msg, Throwable t) {

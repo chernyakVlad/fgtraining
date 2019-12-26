@@ -1,19 +1,19 @@
 package com.training.SpringBootTask.services.impl;
 
-import com.training.SpringBootTask.models.User;
-import com.training.SpringBootTask.models.authentication.JwtToken;
-import com.training.SpringBootTask.models.authentication.LoginUser;
-import com.training.SpringBootTask.models.authentication.RegistrationUser;
+import com.training.SpringBootTask.entity.User;
+import com.training.SpringBootTask.entity.authentication.JwtToken;
+import com.training.SpringBootTask.entity.authentication.LoginUser;
+import com.training.SpringBootTask.entity.authentication.RegistrationUser;
 import com.training.SpringBootTask.security.JwtTokenProvider;
 import com.training.SpringBootTask.services.AuthenticationSerivce;
 import com.training.SpringBootTask.services.TokenStore;
 import com.training.SpringBootTask.services.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,8 +48,11 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
 
     @Override
     public User registration(RegistrationUser registrationUser) {
-        User user = new User(registrationUser.getLogin(), registrationUser.getPassword());
-        return userService.save(user);
+        User newUser = userService.findById(User.DEFAULT_USER_ID);
+        newUser.setId(null);
+        newUser.setLogin(registrationUser.getLogin());
+        newUser.setPassword(registrationUser.getPassword());
+        return userService.save(newUser);
     }
 
     @Override

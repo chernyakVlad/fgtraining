@@ -1,6 +1,6 @@
 package com.training.SpringBootTask.validators;
 
-import com.training.SpringBootTask.models.authentication.RegistrationUser;
+import com.training.SpringBootTask.entity.authentication.RegistrationUser;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

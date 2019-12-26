@@ -1,4 +1,4 @@
-package com.training.SpringBootTask.models.authentication;
+package com.training.SpringBootTask.entity.authentication;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;

@@ -1,4 +1,4 @@
-package com.training.SpringBootTask.models;
+package com.training.SpringBootTask.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -15,7 +15,7 @@ public class Goal {
     private String id;
 
     private String userId;
-
+    //age
     private String description;
 
     private String measuring;

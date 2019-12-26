@@ -1,4 +1,4 @@
-package com.training.SpringBootTask.models.authentication;
+package com.training.SpringBootTask.entity.authentication;
 
 public class LoginUser {
     private String login;

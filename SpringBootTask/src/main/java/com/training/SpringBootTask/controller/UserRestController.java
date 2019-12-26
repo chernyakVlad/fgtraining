@@ -1,6 +1,6 @@
-package com.training.SpringBootTask.controllers;
+package com.training.SpringBootTask.controller;
 
-import com.training.SpringBootTask.models.User;
+import com.training.SpringBootTask.entity.User;
 import com.training.SpringBootTask.services.UserService;
 import com.training.SpringBootTask.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +39,7 @@ public class UserRestController {
 
     @PostMapping(value = "")
     public ResponseEntity<User> save(@RequestBody User user) {
-
-        return new ResponseEntity<User>(userService.save1(user), HttpStatus.CREATED);
+        return new ResponseEntity<User>(userService.save(user), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")

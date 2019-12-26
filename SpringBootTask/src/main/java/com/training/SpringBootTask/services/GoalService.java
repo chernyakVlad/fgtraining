@@ -1,7 +1,6 @@
 package com.training.SpringBootTask.services;
 
-import com.training.SpringBootTask.models.GoalTimeBound;
-import com.training.SpringBootTask.models.Goal;
+import com.training.SpringBootTask.entity.Goal;
 
 import java.util.List;
 
@@ -11,6 +10,5 @@ public interface GoalService {
     List<Goal> getByUserId(String userId);
     Goal save(Goal goal);
     Goal update(String id, Goal goal);
-    List<GoalTimeBound> getTimeBounForGoal(String goalId);
     void delete(String id);
 }

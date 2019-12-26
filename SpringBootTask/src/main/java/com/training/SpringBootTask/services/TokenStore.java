@@ -1,6 +1,6 @@
 package com.training.SpringBootTask.services;
 
-import com.training.SpringBootTask.models.authentication.JwtToken;
+import com.training.SpringBootTask.entity.authentication.JwtToken;
 
 public interface TokenStore {
     public void storeToken(JwtToken token);

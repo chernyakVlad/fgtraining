@@ -1,7 +1,6 @@
-package com.training.SpringBootTask.repositorys;
+package com.training.SpringBootTask.repository;
 
-import com.training.SpringBootTask.models.Role;
-import com.training.SpringBootTask.models.User;
+import com.training.SpringBootTask.entity.Role;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 

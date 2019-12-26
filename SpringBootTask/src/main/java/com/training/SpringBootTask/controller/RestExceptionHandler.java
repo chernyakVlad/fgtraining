@@ -1,19 +1,16 @@
-package com.training.SpringBootTask.controllers;
+package com.training.SpringBootTask.controller;
 
-import com.training.SpringBootTask.exceptions.ItemNotFoundException;
-import com.training.SpringBootTask.exceptions.UserValidationException;
+import com.training.SpringBootTask.exception.ItemNotFoundException;
+import com.training.SpringBootTask.exception.UserValidationException;
 import io.jsonwebtoken.ExpiredJwtException;
 //import org.springframework.hateoas.mediatype.vnderrors.VndErrors;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.nio.file.NoSuchFileException;
-import java.util.Optional;
 
 @ControllerAdvice
 public class RestExceptionHandler {

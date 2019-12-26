@@ -1,4 +1,4 @@
-package com.training.SpringBootTask.configs;
+package com.training.SpringBootTask.config;
 
 import com.training.SpringBootTask.security.JwtAuthenticationEntryPoint;
 import com.training.SpringBootTask.security.JwtAuthenticationFilter;

@@ -1,6 +1,6 @@
 package com.training.SpringBootTask.events;
 
-import com.training.SpringBootTask.models.User;
+import com.training.SpringBootTask.entity.User;
 import com.training.SpringBootTask.services.util.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;

@@ -1,7 +1,6 @@
-package com.training.SpringBootTask.repositorys;
+package com.training.SpringBootTask.repository;
 
-import com.training.SpringBootTask.models.User;
-import com.training.SpringBootTask.models.authentication.JwtToken;
+import com.training.SpringBootTask.entity.authentication.JwtToken;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

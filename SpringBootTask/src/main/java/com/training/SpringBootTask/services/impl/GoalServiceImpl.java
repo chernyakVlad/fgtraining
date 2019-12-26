@@ -1,27 +1,23 @@
 package com.training.SpringBootTask.services.impl;
 
-import com.training.SpringBootTask.exceptions.ItemNotFoundException;
-import com.training.SpringBootTask.models.GoalTimeBound;
-import com.training.SpringBootTask.models.Goal;
-import com.training.SpringBootTask.repositorys.GoalRepository;
-import com.training.SpringBootTask.repositorys.GoalTimeBoundRepository;
+import com.training.SpringBootTask.entity.Goal;
+import com.training.SpringBootTask.exception.ItemNotFoundException;
+import com.training.SpringBootTask.repository.GoalRepository;
 import com.training.SpringBootTask.services.GoalService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-    import java.util.List;
+import java.util.List;
 
 @Service
 public class GoalServiceImpl implements GoalService {
 
     private GoalRepository goalRepository;
-    private GoalTimeBoundRepository goalTimeBoundRepository;
 
     @Autowired
-    public GoalServiceImpl(GoalRepository goalRepository, GoalTimeBoundRepository goalTimeBoundRepository) {
+    public GoalServiceImpl(GoalRepository goalRepository) {
         this.goalRepository = goalRepository;
-        this.goalTimeBoundRepository = goalTimeBoundRepository;
     }
 
     @Override
@@ -58,11 +54,6 @@ public class GoalServiceImpl implements GoalService {
         Goal goal = this.getById(id);
         BeanUtils.copyProperties(uGoal, goal, "id");
         return goalRepository.save(goal);
-    }
-
-    @Override
-    public List<GoalTimeBound> getTimeBounForGoal(String goalId) {
-        return goalTimeBoundRepository.findAll();
     }
 
     @Override

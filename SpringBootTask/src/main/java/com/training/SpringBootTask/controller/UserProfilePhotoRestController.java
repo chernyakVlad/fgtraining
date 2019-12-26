@@ -1,6 +1,6 @@
-package com.training.SpringBootTask.controllers;
+package com.training.SpringBootTask.controller;
 
-import com.training.SpringBootTask.models.User;
+import com.training.SpringBootTask.entity.User;
 import com.training.SpringBootTask.services.ImageStore;
 import com.training.SpringBootTask.services.UserService;
 import com.training.SpringBootTask.services.impl.ImageStoreInFileSystem;

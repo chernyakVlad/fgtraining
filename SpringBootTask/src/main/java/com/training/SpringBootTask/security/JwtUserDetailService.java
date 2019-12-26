@@ -1,6 +1,6 @@
 package com.training.SpringBootTask.security;
 
-import com.training.SpringBootTask.models.User;
+import com.training.SpringBootTask.entity.User;
 import com.training.SpringBootTask.services.UserService;
 import com.training.SpringBootTask.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service("customUserDetailsService")
