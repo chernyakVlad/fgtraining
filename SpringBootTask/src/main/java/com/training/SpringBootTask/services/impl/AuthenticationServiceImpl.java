@@ -48,8 +48,7 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
 
     @Override
     public User registration(RegistrationUser registrationUser) {
-        User newUser = userService.findById(User.DEFAULT_USER_ID);
-        newUser.setId(null);
+        User newUser = new User();
         newUser.setLogin(registrationUser.getLogin());
         newUser.setPassword(registrationUser.getPassword());
         return userService.save(newUser);

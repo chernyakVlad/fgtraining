@@ -39,8 +39,6 @@ public class User {
     @DBRef
     private Role role;
 
-    private List<UserParameterHistoryObject> parameters;
-
     public User() {
     }
 
@@ -125,13 +123,5 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public List<UserParameterHistoryObject> getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(List<UserParameterHistoryObject> parameters) {
-        this.parameters = parameters;
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -28,8 +30,18 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> getById(@PathVariable String  id) {
+    public ResponseEntity<User> getById(@PathVariable String id) {
         return new ResponseEntity<User>(userService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/parameters")
+    public ResponseEntity<?> getUserParamtersHistory(@PathVariable String id,
+                                                     @RequestParam String from,
+                                                     @RequestParam String to) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fromTime = LocalDate.parse(from, formatter);
+        LocalDate toTime = LocalDate.parse(to, formatter);
+        return new ResponseEntity(userService.getUserParametersHistory(id, fromTime, toTime), HttpStatus.OK);
     }
 
     @GetMapping(value = "/login/{login}")

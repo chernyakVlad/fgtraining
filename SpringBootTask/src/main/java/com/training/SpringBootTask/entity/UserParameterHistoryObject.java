@@ -8,12 +8,14 @@ import java.time.LocalDateTime;
 public class UserParameterHistoryObject {
     @Id
     private String id;
+    private String userId;
     private LocalDateTime date;
     private int weight;
     private int height;
 
-    public UserParameterHistoryObject(int weight, int height) {
+    public UserParameterHistoryObject(String userId, int weight, int height) {
         this.date = LocalDateTime.now();
+        this.userId = userId;
         this.height = height;
         this.weight = weight;
     }
@@ -24,6 +26,14 @@ public class UserParameterHistoryObject {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public LocalDateTime getDate() {

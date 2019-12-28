@@ -15,7 +15,7 @@ public class Goal {
     private String id;
 
     private String userId;
-    //age
+
     private String description;
 
     private String measuring;

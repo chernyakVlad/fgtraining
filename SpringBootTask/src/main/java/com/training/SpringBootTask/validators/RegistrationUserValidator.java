@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
 @Service
 public class RegistrationUserValidator implements Validator {
     private static final int MINIMUM_PASSWORD_LENGTH = 6;
-    private static final int MINIMUM_LOGIN_LENGTH = 6;
+    private static final int MINIMUM_LOGIN_LENGTH = 4;
 
     @Override
     public boolean supports(Class<?> aClass) {

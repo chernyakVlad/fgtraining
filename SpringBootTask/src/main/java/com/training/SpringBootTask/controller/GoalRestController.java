@@ -1,7 +1,10 @@
 package com.training.SpringBootTask.controller;
 
+import com.training.SpringBootTask.entity.Exercise;
 import com.training.SpringBootTask.entity.Goal;
+import com.training.SpringBootTask.services.ExerciseGenerationService;
 import com.training.SpringBootTask.services.GoalService;
+import com.training.SpringBootTask.services.impl.ExerciseGenerationServiceImpl;
 import com.training.SpringBootTask.services.impl.GoalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +20,13 @@ import java.util.List;
 public class GoalRestController {
 
     private GoalService goalService;
+    private ExerciseGenerationService exerciseGenerationService;
 
     @Autowired
-    public GoalRestController(GoalServiceImpl goalService) {
+    public GoalRestController(GoalServiceImpl goalService,
+                              ExerciseGenerationServiceImpl exerciseGenerationService) {
         this.goalService = goalService;
+        this.exerciseGenerationService = exerciseGenerationService;
     }
 
     @GetMapping(value = "")
@@ -37,6 +43,17 @@ public class GoalRestController {
     public ResponseEntity<List<Goal>> getByUserId(@PathVariable String userId) {
         return new ResponseEntity<List<Goal>>(goalService.getByUserId(userId), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/{id}/exercise")
+    public ResponseEntity<Exercise> getExerciseForGoalForToday(@PathVariable String id) {
+        return new ResponseEntity<Exercise>(exerciseGenerationService.getExerciseForToday(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/exercises")
+    public ResponseEntity<List<Exercise>> getExerciseForGoalForMonth(@PathVariable String id) {
+        return new ResponseEntity<List<Exercise>>(exerciseGenerationService.getExerciseForMonth(id), HttpStatus.OK);
+    }
+
 
     @PostMapping(value = "")
     public ResponseEntity<Goal> save(@RequestBody Goal goal, BindingResult bindingResult) {

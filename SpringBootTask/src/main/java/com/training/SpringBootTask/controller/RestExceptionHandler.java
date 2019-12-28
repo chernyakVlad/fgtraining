@@ -3,7 +3,6 @@ package com.training.SpringBootTask.controller;
 import com.training.SpringBootTask.exception.ItemNotFoundException;
 import com.training.SpringBootTask.exception.UserValidationException;
 import io.jsonwebtoken.ExpiredJwtException;
-//import org.springframework.hateoas.mediatype.vnderrors.VndErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.nio.file.NoSuchFileException;
+
+//import org.springframework.hateoas.mediatype.vnderrors.VndErrors;
 
 @ControllerAdvice
 public class RestExceptionHandler {
@@ -55,13 +56,4 @@ public class RestExceptionHandler {
             this.message = message;
         }
     }
-
- /*   private <E extends Exception> ResponseEntity<VndErrors> error(E error, HttpStatus httpStatus, String logref) {
-        String msg = Optional.of(error.getMessage())
-                .orElse(error.getClass().getSimpleName());
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(this.vndErrorMediaType);
-        return new ResponseEntity<>(new VndErrors(logref, msg), httpHeaders, httpStatus);
-    }*/
 }

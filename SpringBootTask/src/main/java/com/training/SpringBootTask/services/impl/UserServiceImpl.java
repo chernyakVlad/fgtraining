@@ -1,9 +1,9 @@
 package com.training.SpringBootTask.services.impl;
 
-import com.training.SpringBootTask.entity.UserParameterHistoryObject;
-import com.training.SpringBootTask.exception.ItemNotFoundException;
 import com.training.SpringBootTask.entity.Role;
 import com.training.SpringBootTask.entity.User;
+import com.training.SpringBootTask.entity.UserParameterHistoryObject;
+import com.training.SpringBootTask.exception.ItemNotFoundException;
 import com.training.SpringBootTask.repository.RoleRepository;
 import com.training.SpringBootTask.repository.UserParameterRepository;
 import com.training.SpringBootTask.repository.UserRepository;
@@ -17,7 +17,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -57,7 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() {
         List<User> users = userRepository.findAll();
-        if(users.size() <= 0) {
+        if (users.size() <= 0) {
             throw new ItemNotFoundException("No users found");
         }
         return users;
@@ -67,7 +70,7 @@ public class UserServiceImpl implements UserService {
     public User update(String id, User pUser) {
         User user = findById(id);
         BeanUtils.copyProperties(pUser, user, "id", "password");
-        userParameterRepository.save(new UserParameterHistoryObject(pUser.getWeight(), pUser.getHeight()));
+        userParameterRepository.save(new UserParameterHistoryObject(id, pUser.getWeight(), pUser.getHeight()));
         return userRepository.save(user);
     }
 
@@ -77,8 +80,9 @@ public class UserServiceImpl implements UserService {
         pUser.setRole(userRole);
         String password = pUser.getPassword() != null ? pUser.getPassword() : User.DEFAULT_USER_PASSWORD;
         pUser.setPassword(bCryptPasswordEncoder.encode(password));
-        userParameterRepository.save(new UserParameterHistoryObject(pUser.getWeight(), pUser.getHeight()));
-        return userRepository.save(pUser);
+        User createdUser = userRepository.save(pUser);
+        userParameterRepository.save(new UserParameterHistoryObject(createdUser.getId(), pUser.getWeight(), pUser.getHeight()));
+        return createdUser;
     }
 
     @Override
@@ -101,5 +105,10 @@ public class UserServiceImpl implements UserService {
     public void resetPassword(User user, String newPassword) {
         user.setPassword(newPassword);
         userRepository.save(user);
+    }
+
+    @Override
+    public List<UserParameterHistoryObject> getUserParametersHistory(String id, LocalDate from, LocalDate to) {
+        return userParameterRepository.getUserParametersForPeriod(id, from, to);
     }
 }
