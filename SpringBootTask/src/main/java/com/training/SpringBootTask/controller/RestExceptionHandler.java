@@ -6,12 +6,13 @@ import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.nio.file.NoSuchFileException;
-
-//import org.springframework.hateoas.mediatype.vnderrors.VndErrors;
+import java.util.List;
 
 @ControllerAdvice
 public class RestExceptionHandler {
@@ -55,5 +56,18 @@ public class RestExceptionHandler {
         public void setMessage(String message) {
             this.message = message;
         }
+    }
+
+    public static String createExceptionMessage(List<ObjectError> errors){
+        StringBuilder builder = new StringBuilder();
+        errors.forEach((error)->{
+            FieldError err = (FieldError) error;
+            builder.append("Field - ")
+                    .append(err.getField())
+                    .append(" : ")
+                    .append(err.getDefaultMessage())
+                    .append("\n");
+        });
+        return builder.toString();
     }
 }

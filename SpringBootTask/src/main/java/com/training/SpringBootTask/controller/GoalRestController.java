@@ -54,7 +54,6 @@ public class GoalRestController {
         return new ResponseEntity<List<Exercise>>(exerciseGenerationService.getExerciseForMonth(id), HttpStatus.OK);
     }
 
-
     @PostMapping(value = "")
     public ResponseEntity<Goal> save(@RequestBody Goal goal, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {

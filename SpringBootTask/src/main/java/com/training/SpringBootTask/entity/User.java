@@ -13,7 +13,7 @@ import java.util.List;
 public class User {
     @Transient
     public static final String SEQUENCE_NAME = "users_sequence";
-    public static final String DEFAULT_USER_ID = "102";
+    public static final String DEFAULT_USER_LOGIN = "default";
     public static final String DEFAULT_USER_PASSWORD = "123456";
 
     @Id

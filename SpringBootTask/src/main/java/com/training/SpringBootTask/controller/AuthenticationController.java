@@ -46,7 +46,7 @@ public class AuthenticationController {
     public ResponseEntity<User> signUp(@RequestBody RegistrationUser rUser, BindingResult bindingResult) {
         regUserValidator.validate(rUser, bindingResult);
         if(bindingResult.hasErrors()){
-            throw new UserValidationException(createExceptionMessage(bindingResult.getAllErrors()));
+            throw new UserValidationException(RestExceptionHandler.createExceptionMessage(bindingResult.getAllErrors()));
         }
         return ResponseEntity.ok(authSerivce.registration(rUser));
     }
@@ -55,11 +55,10 @@ public class AuthenticationController {
     public ResponseEntity<JwtToken> signIn(@RequestBody LoginUser lUser, BindingResult bindingResult) {
         loginUserValidator.validate(lUser, bindingResult);
         if(bindingResult.hasErrors()) {
-            throw new UserValidationException(createExceptionMessage(bindingResult.getAllErrors()));
+            throw new UserValidationException(RestExceptionHandler.createExceptionMessage(bindingResult.getAllErrors()));
         }
         return ResponseEntity.ok(authSerivce.login(lUser));
     }
-
 
     @PostMapping(value = "/resetPassword")
     public ResponseEntity<?> resetPassword(@RequestParam String password, @RequestParam String newPassword) {
@@ -76,18 +75,5 @@ public class AuthenticationController {
     @PostMapping(value = "/logout")
     public void logout(@RequestBody JwtToken accessToken) {
         tokenStore.removeToken(accessToken.getAccessToken());
-    }
-
-    private String createExceptionMessage(List<ObjectError> errors){
-        StringBuilder builder = new StringBuilder();
-        errors.forEach((error)->{
-            FieldError err = (FieldError) error;
-            builder.append("Field - ")
-                    .append(err.getField())
-                    .append(" : ")
-                    .append(err.getDefaultMessage())
-                    .append("\n");
-        });
-        return builder.toString();
     }
 }

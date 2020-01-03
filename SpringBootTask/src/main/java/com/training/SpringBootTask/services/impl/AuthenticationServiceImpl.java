@@ -37,18 +37,19 @@ public class AuthenticationServiceImpl implements AuthenticationSerivce {
                                      BCryptPasswordEncoder bCryptPasswordEncoder,
                                      JwtTokenProvider jwtTokenProvider,
                                      UserServiceImpl userServiceImpl,
-                                     TokenStoreImpl tokenSotre) {
+                                     TokenStoreImpl tokenStore) {
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.tokenProvider = jwtTokenProvider;
         this.userService = userServiceImpl;
-        this.tokenSotre = tokenSotre;
+        this.tokenSotre = tokenStore;
     }
 
     @Override
     public User registration(RegistrationUser registrationUser) {
         User newUser = new User();
+        User defaultUser = userService.findByLogin(User.DEFAULT_USER_LOGIN);
         newUser.setLogin(registrationUser.getLogin());
         newUser.setPassword(registrationUser.getPassword());
         return userService.save(newUser);

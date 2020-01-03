@@ -1,9 +1,11 @@
 package com.training.SpringBootTask.controller;
 
 import com.training.SpringBootTask.entity.User;
+import com.training.SpringBootTask.entity.UserParameterHistoryObject;
 import com.training.SpringBootTask.services.UserService;
 import com.training.SpringBootTask.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,13 +37,10 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/{id}/parameters")
-    public ResponseEntity<?> getUserParamtersHistory(@PathVariable String id,
-                                                     @RequestParam String from,
-                                                     @RequestParam String to) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate fromTime = LocalDate.parse(from, formatter);
-        LocalDate toTime = LocalDate.parse(to, formatter);
-        return new ResponseEntity(userService.getUserParametersHistory(id, fromTime, toTime), HttpStatus.OK);
+    public ResponseEntity<?> getUserParametersHistory(@PathVariable String id,
+                                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+                                                     @RequestParam @DateTimeFormat(iso =DateTimeFormat.ISO.DATE) LocalDate to) {
+        return new ResponseEntity(userService.getUserParametersHistory(id, from, to), HttpStatus.OK);
     }
 
     @GetMapping(value = "/login/{login}")
